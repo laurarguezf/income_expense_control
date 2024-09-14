@@ -1,0 +1,10 @@
+@import './core/reset';
+@import './core/variables';
+
+* {
+  background-color: $color-mint-cream;
+}
+
+@import './layout/header';
+@import './layout/landing';
+@import './layout/footer';

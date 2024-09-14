@@ -1,0 +1,19 @@
+.header {
+    height: 40px;
+    background-color: $color-violet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+
+    img {
+        background-color: $color-violet;
+        padding-inline: 5px;
+    }
+
+    h1 {
+        background-color: $color-violet;
+        color: $color-mint-cream;
+        font-size: 0.8rem;
+    }
+}
