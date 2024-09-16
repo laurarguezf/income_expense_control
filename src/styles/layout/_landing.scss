@@ -7,6 +7,7 @@
   border-radius: 10px;
   padding-top: 1.1rem;
   margin-inline: 1rem;
+  min-width: 280px;
 }
 
 .landing_title {
@@ -30,9 +31,11 @@
 }
 
 .landing_title:nth-of-type(2) {
+  color: $color-mint-cream;
+  border-color: transparent;
   animation: typing 2s steps(30, end) 2s, 
-             blink 0.75s step-end infinite, 
-             colorChange 5s infinite;
+             blink 0.75s 2s step-end infinite, 
+             colorChange 5s 2s infinite;
 }
 
     
@@ -44,7 +47,7 @@
 
 @keyframes typing {
   from { width: 0; }
-  to { width: 100%; }
+  to { width: 14ch; }
 }
 
 @keyframes blink {
@@ -54,4 +57,27 @@
   50% {
     border-color: rgba(0, 0, 0, 0.18);
   }
+}
+
+.landing_button {
+  background-color: $color-mint-cream;
+  color: $color-violet;
+  border: none;
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 50px;
+  max-width: 100px;
+  margin-top: 40px;
+  box-shadow: 8px 8px 15px rgba(60, 105, 151, 0.2), /* Lapis Lazuli */
+              -4px -4px 15px rgba(196, 155, 187, 0.6) /* Lilac */
+              ; 
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.landing_button:hover {
+  background-color: $color-lilac;
+  color: $color-mint-cream;
+  transform: scale(1.05);
 }

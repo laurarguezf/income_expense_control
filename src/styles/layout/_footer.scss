@@ -3,9 +3,18 @@
   bottom: 0;
   width: 100%;
   text-align: center;
+  padding-block: 5px;
+  background-color: $color-violet; 
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
 
   p {
-   font-size: 0.7rem;     
+   font-size: 0.7rem;
+   background-color: $color-violet;
+   color: $color-mint-cream;
   }
     
 }

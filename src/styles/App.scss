@@ -5,6 +5,13 @@
   background-color: $color-mint-cream;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
 @import './layout/header';
 @import './layout/landing';
 @import './layout/footer';
