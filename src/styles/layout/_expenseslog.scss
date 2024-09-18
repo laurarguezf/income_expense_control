@@ -1,0 +1,79 @@
+.expense_date {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+
+  .expense_date_link {
+    background-color: $color-violet;
+    padding: 0.4rem 2rem; 
+    border-radius: 20px;
+    color: white;
+  }
+}
+
+.expense_summary {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 1.5rem;
+  border: 1px solid $color-lilac;
+  border-radius: 20px;
+
+  .expense_summary_section {
+    text-align: center;
+  }
+
+  .expense_summary_amount {
+    padding-top: 0.4rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .expense_summary_icon {
+    scale: 1.5;
+  }
+}
+
+
+
+
+
+/*
+.expense_item {
+    background-color: whitesmoke;
+    border: 1px solid $color-lilac;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+.expense_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+  
+.expense_type {
+    font-size: 1.2em;
+    margin: 0;
+}
+  
+.expense_date {
+    font-size: 0.9em;
+    color: #888;
+}
+  
+.expense_details {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+  
+.expense_category,
+.expense_desc,
+.expense_amount {
+    margin: 5px 0;
+}
+  
+.expense_amount {
+    font-size: 1.2em;
+    color: #333;
+}*/
