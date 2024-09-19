@@ -29,29 +29,16 @@ function ExpensesLog({expenses}) {
   
     {expenses.map((expense) => ( 
       <>
-        <section>
-          <p>Date</p>
-          <div>
-            <img src="" alt="" />
-            <div>
-              <p>Description</p>
-              <p>Category</p>
-            </div>
-            <p>Amount</p>
-          </div>
-        </section>
-
         <div className="expense_item">
-          <div className="expense_header">
-            <h3 className="expense_type">{expense.type}</h3>
-            <span className="expense_datee">{expense.date}</span>
+          <div className="expense_item_header">
+            <h3 className="expense_item_date">{expense.date}</h3>
           </div>
 
-        <div className="expense_details">
-          <p className="expense_category"><strong>Category:</strong> {expense.category}</p>
-          <p className="expense_desc"><strong>Description:</strong> {expense.desc}</p>
-          <p className="expense_amount"><strong>Amount:</strong> €{expense.amount.toFixed(2)}</p>
-        </div>
+          <div className="expense_item_details">
+            <p className="expense_item_category"><strong>Category:</strong> {expense.category}</p>
+            <p className="expense_item_desc"><strong>Description:</strong> {expense.desc}</p>
+            <p className="expense_item_amount"><strong>Amount:</strong> €{expense.amount.toFixed(2)}</p>
+          </div>
         </div>
       </>))}
   </>

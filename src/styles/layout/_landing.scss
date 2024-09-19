@@ -31,7 +31,7 @@
 }
 
 .landing_title:nth-of-type(2) {
-  color: $color-mint-cream;
+  color: $color-ghost-white;
   border-color: transparent;
   animation: typing 2s steps(30, end) 2s, 
              blink 0.75s 2s step-end infinite, 
@@ -60,7 +60,7 @@
 }
 
 .landing_button {
-  background-color: $color-mint-cream;
+  background-color: $color-ghost-white;
   color: $color-violet;
   border: none;
   text-decoration: none;
@@ -79,6 +79,6 @@
 
 .landing_button:hover {
   background-color: $color-lilac;
-  color: $color-mint-cream;
+  color: $color-ghost-white;
   transform: scale(1.05);
 }

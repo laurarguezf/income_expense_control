@@ -8,10 +8,10 @@ function Landing() {
     <>
       <Header />
       <section className='landing'>
-        <p className='landing_title'>Track smarter, </p>
+        <p className='landing_title'>Track smarter,</p>
         <p className='landing_title'>spend better</p>
       </section>
-      <Link to='/expenseslog' className='landing_button'>Sign In</Link>
+      <Link to='/expenseslog' className='landing_button'>Log In</Link>
       <Footer />
     </>
   );
