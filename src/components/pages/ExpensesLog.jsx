@@ -1,8 +1,19 @@
 import { CiBadgeDollar } from "react-icons/ci";
 import { CiBank } from "react-icons/ci";
 import { CiBag1 } from "react-icons/ci";
+import { MdFastfood } from "react-icons/md";
+import capitalizeLetter from '../../services/capitalizeLetter';
+
 
 function ExpensesLog({expenses}) {
+
+  // Usar Object.groupBy para agrupar los gastos por fecha
+  const expensesGrouped = Object.groupBy(expenses, ({ date }) => date);
+
+  const expenseColor = (type) => {
+    return type === "ingreso" ? "mediumseagreen" : "lightcoral";
+  }
+
   return (
   <>
     <section className="expense_date">
@@ -26,21 +37,26 @@ function ExpensesLog({expenses}) {
       </div>
     </section>
 
-  
-    {expenses.map((expense) => ( 
-      <>
-        <div className="expense_item">
-          <div className="expense_item_header">
-            <h3 className="expense_item_date">{expense.date}</h3>
-          </div>
-
-          <div className="expense_item_details">
-            <p className="expense_item_category"><strong>Category:</strong> {expense.category}</p>
-            <p className="expense_item_desc"><strong>Description:</strong> {expense.desc}</p>
-            <p className="expense_item_amount"><strong>Amount:</strong> €{expense.amount.toFixed(2)}</p>
-          </div>
+    {/* Usamos Object.entries para transformar el objeto expensesGrouped en un array de [clave, valor]
+    Cada array: primer elemento es la fecha y el segundo es el array de gastos correspondienes a esa fecha */}
+    {Object.entries(expensesGrouped).map(([date, expensesByDate]) => ( 
+      <div className="expense_item" key={date}>
+        <div className="expense_item_header">
+          <h3 className="expense_item_date">{date}</h3>
         </div>
-      </>))}
+
+        {expensesByDate.map((expense) => 
+          <div className="expense_item_details" key={expense.id}>
+            <MdFastfood className="expense_item_icon"/>
+            <div className="expense_item_info">
+              <p className="expense_item_desc">{capitalizeLetter(expense.desc || 'Sin descripción')}</p>
+              <p className="expense_item_category">{capitalizeLetter(expense.category)}</p>
+            </div>
+            <p className="expense_item_amount" style={{color: expenseColor(expense.type)}}>{(expense.type === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
+          </div>
+        )}
+      </div> 
+    ))}
   </>
 )}
 

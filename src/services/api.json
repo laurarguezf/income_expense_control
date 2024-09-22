@@ -1,12 +1,14 @@
 [
     {
+        "id": "001",
         "type": "gasto",
         "date": "2021-09-03",
         "category": "comida",
         "desc": "compra del mes",
-        "amount": 129.4
+        "amount": 129.455
     },
     {
+        "id": "002",
         "type": "ingreso",
         "date": "2021-09-01",
         "category": "nómina",
@@ -14,6 +16,7 @@
         "amount": 2000
     },
     {
+        "id": "003",
         "type": "gasto",
         "date": "2021-09-02",
         "category": "ocio",
@@ -21,6 +24,7 @@
         "amount": 21.4
     },
     {
+        "id": "004",
         "type": "gasto",
         "date": "2021-09-05",
         "category": "ropa",
@@ -28,6 +32,7 @@
         "amount": 45
     },
     {
+        "id": "005",
         "type": "gasto",
         "date": "2021-09-05",
         "category": "gasolina",
@@ -35,6 +40,7 @@
         "amount": 67.99
     },
     {
+        "id": "006",
         "type": "ingreso",
         "date": "2021-09-01",
         "category": "otros",

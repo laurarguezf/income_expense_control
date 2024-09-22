@@ -16,8 +16,10 @@
   justify-content: center;
   gap: 2rem;
   padding: 1.5rem;
+  margin-bottom: 2.5rem;
   border: 1px solid $color-lilac;
   border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 310px;
 
   .expense_summary_section {
@@ -41,37 +43,54 @@
 
 
 .expense_item {
-    background-color: $color-ghost-white;
-    border: 1px solid $color-lilac;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $color-ghost-white;
+  border: 1px solid #ddd;
+  width: 310px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
   
 .expense_item_header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .expense_item_date {
-    font-size: 0.9em;
-    color: #888;
+  font-size: 0.9em;
+  color: #888;
 }
 
 .expense_item_details {
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
+  display: grid;
+  grid-template-columns: 0.8fr 2.2fr 1fr; 
+  align-items: center; 
+  border-top: 1px solid #ddd;
+  padding-block: 10px;
 }
 
-.expense_item_category,
-.expense_item_desc,
-.expense_item_amount {
-    margin: 5px 0;
+.expense_item_icon {
+  grid-column: 1;
+  justify-self: center;
 }
-  
+
+.expense_item_info {
+  grid-column: 2;
+}
+
+.expense_item_desc {
+  font-size: 0.95rem;
+}
+
+.expense_item_category {
+  font-size: 0.8rem;
+  padding-top: 5px;
+}
+
 .expense_item_amount {
-    font-size: 1.2em;
-    color: #333;
+  grid-column: 3;
+  justify-self: end;
+  font-size: 0.9rem;
 }
