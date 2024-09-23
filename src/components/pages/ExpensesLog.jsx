@@ -3,6 +3,7 @@ import { CiBank } from "react-icons/ci";
 import { CiBag1 } from "react-icons/ci";
 import { MdFastfood } from "react-icons/md";
 import capitalizeLetter from '../../services/capitalizeLetter';
+import { Link } from "react-router-dom";
 
 
 function ExpensesLog({expenses}) {
@@ -12,7 +13,23 @@ function ExpensesLog({expenses}) {
 
   const expenseColor = (type) => {
     return type === "ingreso" ? "mediumseagreen" : "lightcoral";
-  }
+  };
+
+  // Cálculo de gastos e ingresos totales
+  const totals = expenses.reduce((accumulator, expense) => {
+
+    if (expense.type === "ingreso") {
+      accumulator.income += expense.amount;
+    } 
+    else {
+      accumulator.expenses += expense.amount;
+    }
+    return accumulator;
+
+  }, { income: 0, expenses: 0 });
+
+  const balance = totals.income - totals.expenses;
+
 
   return (
   <>
@@ -22,18 +39,18 @@ function ExpensesLog({expenses}) {
     <section className="expense_summary">
       <div className="expense_summary_section">
         <CiBank className="expense_summary_icon"/>
-        <p className="expense_summary_amount">2000</p>
-        <p>Income</p>
+        <p className="expense_summary_amount">{totals.income.toFixed(2)}</p>
+        <p className="expense_summary_category">Income</p>
       </div>
       <div className="expense_summary_section">
         <CiBag1 className="expense_summary_icon"/>
-        <p className="expense_summary_amount">1500</p>
-        <p>Balance</p>
+        <p className="expense_summary_amount">{balance.toFixed(2)}</p>
+        <p className="expense_summary_category">Balance</p>
       </div>
       <div className="expense_summary_section">
         <CiBadgeDollar className="expense_summary_icon"/>
-        <p className="expense_summary_amount">-500</p>
-        <p>Expenses</p>
+        <p className="expense_summary_amount">-{totals.expenses.toFixed(2)}</p>
+        <p className="expense_summary_category">Expenses</p>
       </div>
     </section>
 
@@ -57,6 +74,8 @@ function ExpensesLog({expenses}) {
         )}
       </div> 
     ))}
+
+    <Link to='/newlog' className="new_log_button">+</Link>
   </>
 )}
 

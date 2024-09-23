@@ -4,7 +4,7 @@
 
   .expense_date_link {
     background-color: $color-violet;
-    padding: 0.4rem 2rem; 
+    padding: 0.4rem 2rem;
     border-radius: 20px;
     color: white;
   }
@@ -32,7 +32,13 @@
   }
 
   .expense_summary_icon {
-    scale: 1.5;
+    height: 30px;
+    width: 30px;
+    color: #888;
+  }
+
+  .expense_summary_category {
+    font-size: 0.8rem;
   }
 }
 
@@ -93,4 +99,28 @@
   grid-column: 3;
   justify-self: end;
   font-size: 0.9rem;
+}
+
+.new_log_button {
+  position: fixed;
+  bottom: 25px;
+  background-color: $color-lilac;
+  color: $color-ghost-white;
+  border: none;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Añadir una sombra suave para darle un efecto flotante */
+  transition: background-color 0.3s ease; /* Suave transición para el hover */
+}
+
+.new_log_button:hover {
+  background-color: lighten($color-lilac, 10%); /* Cambiar de color al pasar el mouse */
 }
