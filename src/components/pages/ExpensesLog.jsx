@@ -44,12 +44,12 @@ function ExpensesLog({expenses}) {
       </div>
       <div className="expense_summary_section">
         <CiBag1 className="expense_summary_icon"/>
-        <p className="expense_summary_amount">{balance.toFixed(2)}</p>
+        <p className="expense_summary_amount" style={balance > 0 ? {color: 'mediumseagreen'} : {color: 'lightcoral'}}>{balance.toFixed(2)}</p>
         <p className="expense_summary_category">Balance</p>
       </div>
       <div className="expense_summary_section">
         <CiBadgeDollar className="expense_summary_icon"/>
-        <p className="expense_summary_amount">-{totals.expenses.toFixed(2)}</p>
+        <p className="expense_summary_amount" style={{color: 'lightcoral'}}>-{totals.expenses.toFixed(2)}</p>
         <p className="expense_summary_category">Expenses</p>
       </div>
     </section>
