@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import imgMoney from '../images/money.png';
 import Footer from './pages/Footer';
 import Header from './pages/Header';
 

@@ -1,0 +1,70 @@
+.month_selector {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .selected_month_btn {
+  max-width: 150px;
+  background-color: $color-violet;
+  color: $color-ghost-white;
+  padding: 0.4rem 2rem;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  }
+
+  .selected_month_btn:hover {
+    background-color: $color-lilac;
+  }
+}
+
+.calendar {
+  width: 290px;  
+  background-color: $color-lilac;
+  padding: 20px 10px;
+  position: absolute;
+  top: 90px;
+  border-radius: 10px;
+}
+
+.calendar_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-top: 5px;
+  background-color: $color-lilac;
+
+}
+
+.calendar_header_btn {
+  height: 20px;
+  background-color: $color-lilac;
+  border: 1px solid $color-chamoisse;
+  border-radius: 2px;
+  color: $color-chamoisse;
+}
+
+.calendar_header_year {
+  background-color: $color-lilac;
+  color: $color-violet;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.calendar_months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-block: 10px;
+}
+
+.calendar_month {
+  background-color: $color-ghost-white;
+  text-align: center;
+  padding-block: 5px;
+}

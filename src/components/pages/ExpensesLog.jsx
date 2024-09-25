@@ -4,6 +4,7 @@ import { CiBag1 } from "react-icons/ci";
 import { MdFastfood } from "react-icons/md";
 import capitalizeLetter from '../../services/capitalizeLetter';
 import { Link } from "react-router-dom";
+import MonthYearSelector from "../utils/MonthYearSelector";
 
 
 function ExpensesLog({expenses}) {
@@ -33,9 +34,7 @@ function ExpensesLog({expenses}) {
 
   return (
   <>
-    <section className="expense_date">
-      <p className="expense_date_link">Sept, 2024</p>
-    </section>
+    <MonthYearSelector />
     <section className="expense_summary">
       <div className="expense_summary_section">
         <CiBank className="expense_summary_icon"/>
