@@ -1,7 +1,36 @@
+import { useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
 function NewLog({ onClose }) {
+
+  const [ formData, setFormData ] = useState( {
+    date: '',
+    type: '',
+    category: '',
+    desc: '',
+    amount: ''
+  });
+
+  const handleInputChange = (ev) => {
+    const { name, value } = ev.currentTarget;
+    setFormData((data) => ({
+      ...data, [name]: value
+    }))
+  };
+
+  //console.log(formData);
+
+  const handleClickReset = () => {
+    setFormData({
+      date: '',
+      type: '',
+      category: '',
+      desc: '',
+      amount: ''
+    })
+  };
+
   return (
     <div className="backdrop">
       <div className="newlog">
@@ -15,13 +44,13 @@ function NewLog({ onClose }) {
               <legend className="form_group_legend">Expense date</legend>
               <input type="date" name="date" id="date" required className="form_group_input"
                 /*value={selectedDate}*/
-                /*onChange={handleInputChange}*/
+                onChange={handleInputChange}
               />
             </fieldset>
             <fieldset className="form_group">
               <legend className="form_group_legend">Expense type</legend>
               <select name="type" id="type" required className="form_group_input"
-                /*onInput={handleInputChange}*/
+                onChange={handleInputChange}
                 /*value={selectedType}*/
               >
                 <option value="">Select</option>
@@ -32,8 +61,8 @@ function NewLog({ onClose }) {
             <fieldset className="form_group">
             <legend className="form_group_legend">Category name</legend>
               <select name="category" id="category" required className="form_group_input"
-                /*onInput={handleInputChange}
-                value={selectedCategory}*/
+                onInput={handleInputChange}
+                //value={selectedCategory}*/
               >
                 <option value="">Select</option>
                 <option value="food">Food</option>
@@ -43,21 +72,21 @@ function NewLog({ onClose }) {
             <fieldset className="form_group">
               <legend className="form_group_legend">Description <span className="desc_optional">*optional</span></legend>
               <input type="text" name="desc" id="desc" className="form_group_input"
-                /*onInput={handleInputChange}*/
+                onInput={handleInputChange}
                 /*value={description}*/
               />
             </fieldset>
             <fieldset className="newlog_input_group">
               <legend className="form_group_legend">Amount</legend>
               <input type="number" name="amount" id="amount" required className="form_group_input" inputMode="numeric"
-                /*onInput={handleInputChange}*/
+                onInput={handleInputChange}
                 /*value={amount}*/
               />
             </fieldset>
 
             <div className="form_buttons">
               <button type="submit" className="form_submit_btn">Submit</button>
-              <button type="reset" className="form_reset_btn" /*onClick={handleCloseClick}*/>Reset</button>
+              <button type="reset" className="form_reset_btn" onClick={handleClickReset}>Reset</button>
             </div>
 
           </form>
