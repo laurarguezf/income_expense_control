@@ -30,41 +30,58 @@
   position: absolute;
   top: 90px;
   border-radius: 10px;
+
+  .calendar_header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-top: 5px;
+    background-color: $color-lilac;
+
+    .calendar_header_btn_icon {
+      background-color: $color-lilac;
+      color: $color-violet;
+      cursor: pointer;
+      width: 22px;
+      height: 22px;
+    }
+
+    .calendar_header_year {
+      background-color: $color-lilac;
+      color: $color-violet;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .calendar_months {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-block: 10px;
+  }
+
+  .calendar_month {
+    background-color: $color-ghost-white;
+    text-align: center;
+    padding-block: 5px;
+    cursor: pointer;
+  }
+
+  .calendar_month:hover {
+    background-color: rgba(196, 155, 187, 0.3);
+    font-weight: bold;
+  }
+
+  .month_selected {
+    background-color: rgba(196, 155, 187, 0.3);
+    font-weight: bold;
+  }
 }
 
-.calendar_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20px;
-  margin-top: 5px;
-  background-color: $color-lilac;
 
-}
 
-.calendar_header_btn {
-  height: 20px;
-  background-color: $color-lilac;
-  border: 1px solid $color-chamoisse;
-  border-radius: 2px;
-  color: $color-chamoisse;
-}
 
-.calendar_header_year {
-  background-color: $color-lilac;
-  color: $color-violet;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
 
-.calendar_months {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding-block: 10px;
-}
 
-.calendar_month {
-  background-color: $color-ghost-white;
-  text-align: center;
-  padding-block: 5px;
-}
+
