@@ -43,7 +43,6 @@ function NewLog({ onClose }) {
             <fieldset className="form_group">
               <legend className="form_group_legend">Expense date</legend>
               <input type="date" name="date" id="date" required className="form_group_input"
-                /*value={selectedDate}*/
                 onChange={handleInputChange}
               />
             </fieldset>
@@ -51,7 +50,6 @@ function NewLog({ onClose }) {
               <legend className="form_group_legend">Expense type</legend>
               <select name="type" id="type" required className="form_group_input"
                 onChange={handleInputChange}
-                /*value={selectedType}*/
               >
                 <option value="">Select</option>
                 <option value="expense">Expense</option>
@@ -62,7 +60,6 @@ function NewLog({ onClose }) {
             <legend className="form_group_legend">Category name</legend>
               <select name="category" id="category" required className="form_group_input"
                 onInput={handleInputChange}
-                //value={selectedCategory}*/
               >
                 <option value="">Select</option>
                 <option value="food">Food</option>
@@ -73,14 +70,12 @@ function NewLog({ onClose }) {
               <legend className="form_group_legend">Description <span className="desc_optional">*optional</span></legend>
               <input type="text" name="desc" id="desc" className="form_group_input"
                 onInput={handleInputChange}
-                /*value={description}*/
               />
             </fieldset>
             <fieldset className="newlog_input_group">
               <legend className="form_group_legend">Amount</legend>
               <input type="number" name="amount" id="amount" required className="form_group_input" inputMode="numeric"
                 onInput={handleInputChange}
-                /*value={amount}*/
               />
             </fieldset>
 
