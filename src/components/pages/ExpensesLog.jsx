@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { CiBadgeDollar } from "react-icons/ci";
 import { CiBank } from "react-icons/ci";
 import { CiBag1 } from "react-icons/ci";
 import { MdFastfood } from "react-icons/md";
 import capitalizeLetter from '../../services/capitalizeLetter';
-import { Link } from "react-router-dom";
 import MonthYearSelector from "../utils/MonthYearSelector";
+import NewLog from "./NewLog";
 
 
 function ExpensesLog({expenses}) {
@@ -30,6 +31,9 @@ function ExpensesLog({expenses}) {
   }, { income: 0, expenses: 0 });
 
   const balance = totals.income - totals.expenses;
+
+  //Modal Newlog
+  const [ showNewLog, setShowNewLog ] = useState( false ); //Para controlar la visibilidad del modal NewLog
 
 
   return (
@@ -74,7 +78,11 @@ function ExpensesLog({expenses}) {
       </div> 
     ))}
 
-    <Link to='/newlog' className="new_log_button">+</Link>
+    <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
+    {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
+    {showNewLog &&
+    <NewLog onClose={() => setShowNewLog(false)} />}
+
   </>
 )}
 

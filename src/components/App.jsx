@@ -20,22 +20,19 @@ function App() {
 
 
   return (
-    <div>
+    
+    <main className="main">
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/expenseslog" element={<ExpensesLog expenses={expenses}/>}/>
+        <Route path="*" element={<></>}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/newlog" element={<NewLog />}/>
+        <Route path="*" element={<></>}></Route>
+      </Routes>
+    </main>
       
-      
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/expenseslog" element={<ExpensesLog expenses={expenses}/>}/>
-          <Route path="*" element={<></>}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/newlog" element={<NewLog />}/>
-          <Route path="*" element={<></>}></Route>
-        </Routes>
-      </main>
-      
-    </div>
   );
 }
 

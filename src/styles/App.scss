@@ -1,7 +1,7 @@
 @import './core/reset';
 @import './core/variables';
 
-* {
+:root {
   background-color: $color-ghost-white;
 }
 
@@ -9,11 +9,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 }
 
 @import './layout/header';
 @import './layout/landing';
 @import './layout/expenseslog';
 @import './layout/monthyearselector';
+@import './layout/newlog';
 @import './layout/footer';
