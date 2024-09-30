@@ -10,15 +10,27 @@ import NewLog from "./NewLog";
 
 function ExpensesLog({expenses}) {
 
-  // Usar Object.groupBy para agrupar los gastos por fecha
-  const expensesGrouped = Object.groupBy(expenses, ({ date }) => date);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Año actual
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Mes actual
+
+  // Filtrar los gastos por el mes y año seleccionados
+  const filteredExpenses = expenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+    return (
+      expenseDate.getMonth() === selectedMonth &&
+      expenseDate.getFullYear() === currentYear
+    );
+  });
+
+  // Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados)
+  const expensesGrouped = Object.groupBy(filteredExpenses, ({ date }) => date);
 
   const expenseColor = (type) => {
     return type === "ingreso" ? "mediumseagreen" : "lightcoral";
   };
 
   // Cálculo de gastos e ingresos totales
-  const totals = expenses.reduce((accumulator, expense) => {
+  const totals = filteredExpenses.reduce((accumulator, expense) => {
 
     if (expense.type === "ingreso") {
       accumulator.income += expense.amount;
@@ -38,7 +50,12 @@ function ExpensesLog({expenses}) {
 
   return (
   <>
-    <MonthYearSelector />
+    <MonthYearSelector 
+      currentYear={currentYear} 
+      setCurrentYear={setCurrentYear}
+      selectedMonth={selectedMonth}
+      setSelectedMonth={setSelectedMonth}/>
+
     <section className="expense_summary">
       <div className="expense_summary_section">
         <CiBank className="expense_summary_icon"/>
@@ -80,8 +97,7 @@ function ExpensesLog({expenses}) {
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
-    {showNewLog &&
-    <NewLog onClose={() => setShowNewLog(false)} />}
+    {showNewLog && <NewLog onClose={() => setShowNewLog(false)} />}
 
   </>
 )}

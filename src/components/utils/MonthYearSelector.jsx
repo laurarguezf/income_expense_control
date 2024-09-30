@@ -3,10 +3,8 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { IoArrowForwardCircle } from "react-icons/io5";
 
 
-function MonthYearSelector() {
+function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSelectedMonth }) {
 
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Año actual
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Mes actual
   const [showCalendar, setShowCalendar] = useState(false); //Para controlar la visibilidad del calendario
   const [calendarYear, setCalendarYear ] = useState(currentYear); //Año en el calendario (mientras se navega por los años)
   
@@ -20,7 +18,7 @@ function MonthYearSelector() {
   //Función para alternar la visibilidad del calendario
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);
-    setCalendarYear(currentYear);
+    setCalendarYear(currentYear); //año calendario = año actual
   };
   
   return (

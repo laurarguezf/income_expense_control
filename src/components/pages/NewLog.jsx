@@ -19,7 +19,7 @@ function NewLog({ onClose }) {
     }))
   };
 
-  //console.log(formData);
+  console.log(formData);
 
   const handleClickReset = () => {
     setFormData({
@@ -74,7 +74,7 @@ function NewLog({ onClose }) {
             </fieldset>
             <fieldset className="newlog_input_group">
               <legend className="form_group_legend">Amount</legend>
-              <input type="number" name="amount" id="amount" required className="form_group_input" inputMode="numeric"
+              <input type="number" name="amount" id="amount" step="0.01" required className="form_group_input" inputMode="numeric"
                 onInput={handleInputChange}
               />
             </fieldset>
