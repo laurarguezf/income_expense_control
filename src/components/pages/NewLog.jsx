@@ -21,6 +21,11 @@ function NewLog({ onClose }) {
 
   console.log(formData);
 
+  const handleClickSubmit = () => {
+    ev.preventDefault();
+    //Aquí haré una petición de tipo POST
+  }
+
   const handleClickReset = () => {
     setFormData({
       date: '',
@@ -80,7 +85,7 @@ function NewLog({ onClose }) {
             </fieldset>
 
             <div className="form_buttons">
-              <button type="submit" className="form_submit_btn">Submit</button>
+              <button type="submit" className="form_submit_btn" onClick={handleClickSubmit}>Submit</button>
               <button type="reset" className="form_reset_btn" onClick={handleClickReset}>Reset</button>
             </div>
 

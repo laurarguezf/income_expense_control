@@ -22,15 +22,18 @@ function ExpensesLog({expenses}) {
     );
   });
 
-  // Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados)
-  const expensesGrouped = Object.groupBy(filteredExpenses, ({ date }) => date);
+  // Ordenar gastos por fecha (más reciente primero)
+  const sortedExpenses = filteredExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados y ordenados)
+  const expensesGrouped = Object.groupBy(sortedExpenses, ({ date }) => date);
 
   const expenseColor = (type) => {
     return type === "ingreso" ? "mediumseagreen" : "lightcoral";
   };
 
   // Cálculo de gastos e ingresos totales
-  const totals = filteredExpenses.reduce((accumulator, expense) => {
+  const totals = sortedExpenses.reduce((accumulator, expense) => {
 
     if (expense.type === "ingreso") {
       accumulator.income += expense.amount;

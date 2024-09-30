@@ -94,5 +94,13 @@
         "category": "otros",
         "desc": "venta segunda mano",
         "amount": 345
+    },
+    {
+        "id": "13",
+        "type": "gasto",
+        "date": "2024-08-15",
+        "category": "imprevistos",
+        "desc": "reparación coche",
+        "amount": 1100
     }
 ]
