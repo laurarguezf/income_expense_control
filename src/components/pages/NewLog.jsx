@@ -19,11 +19,15 @@ function NewLog({ onClose }) {
     }))
   };
 
-  console.log(formData);
+  //console.log(formData);
 
-  const handleClickSubmit = () => {
+  const handleClickSubmit = (ev) => {
     ev.preventDefault();
+    console.log('Formulario enviado:', formData);
     //Aquí haré una petición de tipo POST
+
+    handleClickReset(); //Restablecemos el formulario
+    onClose(); //Cerramos modal
   }
 
   const handleClickReset = () => {
@@ -44,7 +48,7 @@ function NewLog({ onClose }) {
 
         <section>
           <h3 className="newlog_title">Input your new expense data</h3>
-          <form className="newlog_form">
+          <form className="newlog_form" onSubmit={handleClickSubmit}>
             <fieldset className="form_group">
               <legend className="form_group_legend">Expense date</legend>
               <input type="date" name="date" id="date" required className="form_group_input"
@@ -64,7 +68,7 @@ function NewLog({ onClose }) {
             <fieldset className="form_group">
             <legend className="form_group_legend">Category name</legend>
               <select name="category" id="category" required className="form_group_input"
-                onInput={handleInputChange}
+                onChange={handleInputChange}
               >
                 <option value="">Select</option>
                 <option value="food">Food</option>
@@ -74,18 +78,18 @@ function NewLog({ onClose }) {
             <fieldset className="form_group">
               <legend className="form_group_legend">Description <span className="desc_optional">*optional</span></legend>
               <input type="text" name="desc" id="desc" className="form_group_input"
-                onInput={handleInputChange}
+                onChange={handleInputChange}
               />
             </fieldset>
             <fieldset className="newlog_input_group">
               <legend className="form_group_legend">Amount</legend>
-              <input type="number" name="amount" id="amount" step="0.01" required className="form_group_input" inputMode="numeric"
-                onInput={handleInputChange}
+              <input type="number" name="amount" id="amount" step="0.01" min="0" required className="form_group_input" inputMode="numeric"
+                onChange={handleInputChange} 
               />
             </fieldset>
 
             <div className="form_buttons">
-              <button type="submit" className="form_submit_btn" onClick={handleClickSubmit}>Submit</button>
+              <button type="submit" className="form_submit_btn">Submit</button>
               <button type="reset" className="form_reset_btn" onClick={handleClickReset}>Reset</button>
             </div>
 
