@@ -6,8 +6,8 @@ function NewLog({ onClose }) {
 
   const [ formData, setFormData ] = useState( {
     date: '',
-    type: '',
-    category: '',
+    type_name: '',
+    category_name: '',
     desc: '',
     amount: ''
   });
@@ -33,16 +33,16 @@ function NewLog({ onClose }) {
   const handleClickReset = () => {
     setFormData({
       date: '',
-      type: '',
-      category: '',
+      type_name: '',
+      category_name: '',
       desc: '',
       amount: ''
     })
   };
 
   return (
-    <div className="backdrop">
-      <div className="newlog">
+    <div className="backdrop" onClick={onClose}>
+      <div className="newlog" onClick={(ev) => ev.stopPropagation()}>
         
         <IoMdCloseCircleOutline className="newlog_closing_btn" onClick={onClose} />
 

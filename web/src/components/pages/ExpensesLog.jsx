@@ -9,7 +9,7 @@ import NewLog from "./NewLog";
 
 
 function ExpensesLog({expenses}) {
-
+  
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Año actual
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Mes actual
 
@@ -22,8 +22,9 @@ function ExpensesLog({expenses}) {
     );
   });
 
-  // Ordenar gastos por fecha (más reciente primero)
+    // Ordenar gastos por fecha (más reciente primero)
   const sortedExpenses = filteredExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+
 
   // Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados y ordenados)
   const expensesGrouped = Object.groupBy(sortedExpenses, ({ date }) => date);
@@ -35,7 +36,7 @@ function ExpensesLog({expenses}) {
   // Cálculo de gastos e ingresos totales
   const totals = sortedExpenses.reduce((accumulator, expense) => {
 
-    if (expense.type === "ingreso") {
+    if (expense.type_name === "ingreso") {
       accumulator.income += expense.amount;
     } 
     else {
@@ -86,13 +87,13 @@ function ExpensesLog({expenses}) {
         </div>
 
         {expensesByDate.map((expense) => 
-          <div className="expense_item_details" key={expense.id}>
+          <div className="expense_item_details" key={expense.idexpenses}>
             <MdFastfood className="expense_item_icon"/>
             <div className="expense_item_info">
               <p className="expense_item_desc">{capitalizeLetter(expense.desc || 'Sin descripción')}</p>
-              <p className="expense_item_category">{capitalizeLetter(expense.category)}</p>
+              <p className="expense_item_category">{(expense.category_name)}</p>
             </div>
-            <p className="expense_item_amount" style={{color: expenseColor(expense.type)}}>{(expense.type === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
+            <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
           </div>
         )}
       </div> 

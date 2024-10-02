@@ -10,10 +10,29 @@ function App() {
 
   // VARIABLES DE ESTADO
 
-  const [ expenses, setExpenses ] = useState(expensesJson);
+  const [ expenses, setExpenses ] = useState([]);
 
   // USEEFFECT
-  
+
+  useEffect(() => {
+
+    //Fetch projects
+    async function fetchExpenses() {
+      try { 
+        const res = await fetch('http://localhost:3000/expenses')
+        const data = await res.json();
+        setExpenses(data);
+        }
+        catch(error) {
+          console.log('Error', error);
+        }
+    }
+
+    fetchExpenses();
+  },[])
+
+
+
   // EVENTOS
 
   // FUNCIONES DE RENDERIZADO

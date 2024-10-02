@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { IoArrowForwardCircle } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
 
 
 function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSelectedMonth }) {
@@ -25,6 +26,7 @@ function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSele
     <section className="month_selector">
       <button className="selected_month_btn" onClick={toggleCalendar}>
         {months[selectedMonth]}, {currentYear} {/* Muestra el mes y el año seleccionados */}
+        <IoIosArrowDown /> 
       </button>
   
       {showCalendar && (
