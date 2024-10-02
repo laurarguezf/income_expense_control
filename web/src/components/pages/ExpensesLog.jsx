@@ -2,7 +2,11 @@ import { useState } from "react";
 import { CiBadgeDollar } from "react-icons/ci";
 import { CiBank } from "react-icons/ci";
 import { CiBag1 } from "react-icons/ci";
-import { MdFastfood } from "react-icons/md";
+import * as MdIcons from "react-icons/md";
+import * as FaIcons from "react-icons/fa6";
+import * as IoIcons from "react-icons/io5";
+import * as CgIcons from "react-icons/cg";
+import * as SiIcons from "react-icons/si";
 import capitalizeLetter from '../../services/capitalizeLetter';
 import MonthYearSelector from "../utils/MonthYearSelector";
 import NewLog from "./NewLog";
@@ -51,6 +55,21 @@ function ExpensesLog({expenses}) {
   //Modal Newlog
   const [ showNewLog, setShowNewLog ] = useState( false ); //Para controlar la visibilidad del modal NewLog
 
+  // Obtener el componente del icono
+  const getIconComponent = (icon) => {
+    const IconComponent = 
+      MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon];
+  
+    if (!IconComponent) {
+      console.warn(`Icono no encontrado: ${icon}`);
+    }
+    
+    return IconComponent;
+  };
+
+
+
+
 
   return (
   <>
@@ -86,16 +105,20 @@ function ExpensesLog({expenses}) {
           <h3 className="expense_item_date">{date}</h3>
         </div>
 
-        {expensesByDate.map((expense) => 
-          <div className="expense_item_details" key={expense.idexpenses}>
-            <MdFastfood className="expense_item_icon"/>
-            <div className="expense_item_info">
-              <p className="expense_item_desc">{capitalizeLetter(expense.desc || 'Sin descripción')}</p>
-              <p className="expense_item_category">{(expense.category_name)}</p>
-            </div>
-            <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
+        {expensesByDate.map((expense) => {
+          const IconCategoryComponent = getIconComponent(expense.icon);  
+
+          return (
+            <div className="expense_item_details" key={expense.idexpenses}>
+              <IconCategoryComponent className="expense_item_icon"/>
+              <div className="expense_item_info">
+                <p className="expense_item_desc">{(expense.desc || 'Sin descripción')}</p>
+                <p className="expense_item_category">{(expense.category_name)}</p>
+              </div>
+              <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
           </div>
-        )}
+          )
+        })}
       </div> 
     ))}
 
