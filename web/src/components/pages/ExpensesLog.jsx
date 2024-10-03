@@ -99,28 +99,32 @@ function ExpensesLog({expenses}) {
 
     {/* Usamos Object.entries para transformar el objeto expensesGrouped en un array de [clave, valor]
     Cada array: primer elemento es la fecha y el segundo es el array de gastos correspondienes a esa fecha */}
-    {Object.entries(expensesGrouped).map(([date, expensesByDate]) => ( 
-      <div className="expense_item" key={date}>
-        <div className="expense_item_header">
-          <h3 className="expense_item_date">{date}</h3>
-        </div>
-
-        {expensesByDate.map((expense) => {
-          const IconCategoryComponent = getIconComponent(expense.icon);  
-
-          return (
-            <div className="expense_item_details" key={expense.idexpenses}>
-              <IconCategoryComponent className="expense_item_icon"/>
-              <div className="expense_item_info">
-                <p className="expense_item_desc">{(expense.desc || 'Sin descripción')}</p>
-                <p className="expense_item_category">{(expense.category_name)}</p>
-              </div>
-              <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
+    {Object.entries(expensesGrouped).map(([date, expensesByDate]) => {
+      const formattedDate = new Date(date).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}); //Formateamos fecha DD/MM/YYYY
+      
+      return ( 
+        <div className="expense_item" key={date}>
+          <div className="expense_item_header">
+            <h3 className="expense_item_date">{formattedDate}</h3>
           </div>
-          )
-        })}
-      </div> 
-    ))}
+
+          {expensesByDate.map((expense) => {
+            const IconCategoryComponent = getIconComponent(expense.icon);  
+
+            return (
+              <div className="expense_item_details" key={expense.idexpenses}>
+                <IconCategoryComponent className="expense_item_icon"/>
+                <div className="expense_item_info">
+                  <p className="expense_item_desc">{(expense.desc || 'Sin descripción')}</p>
+                  <p className="expense_item_category">{(expense.category_name)}</p>
+                </div>
+                <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
+            </div>
+            )
+          })}
+        </div> 
+      );
+    })};
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
