@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
 function NewLog({ onClose }) {
 
-  const [ formData, setFormData ] = useState( {
+  const [formData, setFormData] = useState( {
     date: '',
     type_name: '',
     category_name: '',
@@ -12,23 +12,85 @@ function NewLog({ onClose }) {
     amount: ''
   });
 
+  console.log(formData);
+  
+  const [categories, setCategories] = useState( [] ); //Almacena las categorías 
+  const [filteredCategories, setFilteredCategories] = useState( [] ); //Almacena las categorías filtradas según tipo de gasto
+
+
+
+  useEffect(() => {
+    //Fetch categorías
+    async function fetchCategories() {
+      try {
+        const res = await fetch('http://localhost:3000/categories')
+        const data = await res.json();
+        setCategories(data);
+      }
+      catch(error) {
+        console.log('Error', error);
+      }
+    }
+
+    fetchCategories();
+  },[]);
+
+  // Controlar los cambios en los inputs del formulario
   const handleInputChange = (ev) => {
     const { name, value } = ev.currentTarget;
     setFormData((data) => ({
       ...data, [name]: value
-    }))
+    }));
+
+    // Filtrar categorías según el tipo de gasto seleccionado en el formulario
+    if (name === "type_name") {
+      const filteredCat = categories.filter(category => category.type_name === value)
+      setFilteredCategories(filteredCat);
+    } 
   };
 
-  //console.log(formData);
-
-  const handleClickSubmit = (ev) => {
+  // Función submit para enviar formulario
+  const handleClickSubmit = async (ev) => {
     ev.preventDefault();
     console.log('Formulario enviado:', formData);
-    //Aquí haré una petición de tipo POST
 
+    // Obtener el id de la categoría seleccionada
+    const category = filteredCategories.find(cat => cat.category_name === formData.category_name);
+    // Obtener el id del tipo de gasto ( 1 para gasto, 2 para ingreso )
+    const type = formData.type_name === 'gasto' ? 1 : 2;
+
+    // Datos para enviar al servidor
+    const dataToSend = {
+      date: formData.date,
+      idcategories: category.idcategories,
+      idtypes: type,
+      amount: formData.amount,
+      desc: formData.desc || null
+    };
+
+    // Función con fetch para envíar la petición POST
+    async function postNewExpense(url = '', data = {}) {
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const responseData = await res.json();
+        return responseData;
+      }
+      catch(error) {
+        console.log('Error en la solicitud POST:', error);
+      }
+    }
+
+    await postNewExpense('http://localhost:3000/expenses', dataToSend); //Enviar los datos al servidor y esperar respuesta
     handleClickReset(); //Restablecemos el formulario
     onClose(); //Cerramos modal
-  }
+  };
 
   const handleClickReset = () => {
     setFormData({
@@ -37,8 +99,10 @@ function NewLog({ onClose }) {
       category_name: '',
       desc: '',
       amount: ''
-    })
+    });
+    setFilteredCategories([]);
   };
+
 
   return (
     <div className="backdrop" onClick={onClose}>
@@ -51,41 +115,32 @@ function NewLog({ onClose }) {
           <form className="newlog_form" onSubmit={handleClickSubmit}>
             <fieldset className="form_group">
               <legend className="form_group_legend">Expense date</legend>
-              <input type="date" name="date" id="date" required className="form_group_input"
-                onChange={handleInputChange}
-              />
+              <input type="date" name="date" id="date" required className="form_group_input" onChange={handleInputChange}/>
             </fieldset>
             <fieldset className="form_group">
               <legend className="form_group_legend">Expense type</legend>
-              <select name="type" id="type" required className="form_group_input"
-                onChange={handleInputChange}
-              >
+              <select name="type_name" id="type_name" required className="form_group_input" onChange={handleInputChange}>
                 <option value="">Select</option>
-                <option value="expense">Expense</option>
-                <option value="income">Income</option>
+                <option value="gasto">Expense</option>
+                <option value="ingreso">Income</option>
               </select>
             </fieldset>
             <fieldset className="form_group">
             <legend className="form_group_legend">Category name</legend>
-              <select name="category" id="category" required className="form_group_input"
-                onChange={handleInputChange}
-              >
+              <select name="category_name" id="category_name" required className="form_group_input" onChange={handleInputChange}>
                 <option value="">Select</option>
-                <option value="food">Food</option>
-                <option value="house">House</option>
+                {filteredCategories.map((category) => (
+                  <option key={category.idcategories} value={category.category_name}>{category.category_name}</option>
+                ))}
               </select>
             </fieldset>
             <fieldset className="form_group">
               <legend className="form_group_legend">Description <span className="desc_optional">*optional</span></legend>
-              <input type="text" name="desc" id="desc" className="form_group_input"
-                onChange={handleInputChange}
-              />
+              <input type="text" name="desc" id="desc" className="form_group_input" onChange={handleInputChange}/>
             </fieldset>
             <fieldset className="newlog_input_group">
               <legend className="form_group_legend">Amount</legend>
-              <input type="number" name="amount" id="amount" step="0.01" min="0" required className="form_group_input" inputMode="numeric"
-                onChange={handleInputChange} 
-              />
+              <input type="number" name="amount" id="amount" step="0.01" min="0" required className="form_group_input" inputMode="numeric" onChange={handleInputChange} />
             </fieldset>
 
             <div className="form_buttons">

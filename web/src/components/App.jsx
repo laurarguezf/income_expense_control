@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
 
-    //Fetch projects
+    //Fetch gastos/ingresos
     async function fetchExpenses() {
       try { 
         const res = await fetch('http://localhost:3000/expenses')

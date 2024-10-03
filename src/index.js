@@ -73,3 +73,77 @@ server.get('/expenses', async (req, res) => {
 	//Cerramos conexión
 	await connection.close();
 });
+
+
+// -------- Listar nombres de categorias y su tipo de gasto relacionado --------
+server.get('/categories', async (req, res) => {
+	//Nos conectamos
+	const connection = await getConnection();
+
+	if( !connection ) {
+		res.status(500).json({success: false, error: 'Error con la conexión.'});
+		return;
+	}
+
+	//Obtenemos los datos
+	const [results] = await connection.query(`
+        SELECT categories.idcategories, categories.category_name, types.type_name FROM categories
+			JOIN types ON categories.idtypes = types.idtypes;
+        `);
+
+	//Devolvemos los resultados
+	if (!results) {
+		res.status(500).json({
+			success: false,
+			error: 'Error en la obtención de categorías'
+		})
+	}
+	else {
+		res.status(200).json(results);
+	}
+	
+	//Cerramos conexión
+	await connection.close();
+});
+
+
+// -------- Insertar gasto/ingreso nuevo --------
+server.post('/expenses', async (req, res) => {
+	//Nos conectamos
+	const connection = await getConnection();
+
+	if( !connection ) {
+		res.status(500).json({success: false, error: 'Error con la conexión.'});
+	}
+
+	//Comprobamos que están todos los datos
+	const {date, idcategories, idtypes, amount} = req.body;
+
+	if (!date || !idcategories || !idtypes || !amount) {
+		return res.status(400).json({error: 'Faltan datos para crear la nueva entrada.'})
+	}
+
+	//Insertamos nuevos datos
+	const [results] = await connection.execute(
+		`INSERT INTO expenses (date, amount, \`desc\`, idcategories, idtypes) 
+			VALUES (?, ?, ?, ?, ?)`,
+			[req.body.date, req.body.amount, req.body.desc || null, req.body.idcategories, req.body.idtypes]);
+	
+	//Devolvemos un JSON en función de los resultados del insert
+	if (results.affectedRows === 1)	{
+		res.status(201).json({
+			success: true,
+			message: 'Gasto/ingreso creado correctamente',
+			id: results.insertId
+		})
+	}
+	else {
+		res.status(500).json({
+			success: false,
+			error: 'Datos no insertados'
+		})
+	};
+
+	//Cerramos conexión
+	await connection.close();
+});

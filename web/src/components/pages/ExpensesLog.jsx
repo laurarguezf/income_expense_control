@@ -26,13 +26,13 @@ function ExpensesLog({expenses}) {
     );
   });
 
-    // Ordenar gastos por fecha (más reciente primero)
+  // Ordenar gastos por fecha (más reciente primero)
   const sortedExpenses = filteredExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
-
 
   // Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados y ordenados)
   const expensesGrouped = Object.groupBy(sortedExpenses, ({ date }) => date);
 
+  // Darle estilo de color según el tipo de gasto
   const expenseColor = (type) => {
     return type === "ingreso" ? "mediumseagreen" : "lightcoral";
   };
@@ -67,10 +67,7 @@ function ExpensesLog({expenses}) {
     return IconComponent;
   };
 
-
-
-
-
+  
   return (
   <>
     <MonthYearSelector 
@@ -128,7 +125,7 @@ function ExpensesLog({expenses}) {
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
-    {showNewLog && <NewLog onClose={() => setShowNewLog(false)} />}
+    {showNewLog && <NewLog onClose={() => setShowNewLog(false)}/>}
 
   </>
 )}
