@@ -1,10 +1,10 @@
 import '../styles/App.scss';
 import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Landing from './Landing';
 import ExpensesLog from './pages/ExpensesLog';
-import { useEffect, useState } from 'react';
-import expensesJson from '../services/api.json'
 import NewLog from './pages/NewLog';
+import capitalizeLetter from '../services/capitalizeLetter';
 
 function App() {
 
@@ -20,8 +20,14 @@ function App() {
     async function fetchExpenses() {
       try { 
         const res = await fetch('http://localhost:3000/expenses')
-        const data = await res.json();
-        setExpenses(data);
+        const data = await (res.json());
+
+        //Aplicamos capitalizeLetter para texto estético de la description
+        const capitalizedData = data.map((item) => {
+          return { ...item, desc: capitalizeLetter(item.desc)}
+        });
+
+        setExpenses(capitalizedData);
         }
         catch(error) {
           console.log('Error', error);

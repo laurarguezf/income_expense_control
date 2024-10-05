@@ -88,6 +88,7 @@ function NewLog({ onClose }) {
     }
 
     await postNewExpense('http://localhost:3000/expenses', dataToSend); //Enviar los datos al servidor y esperar respuesta
+
     handleClickReset(); //Restablecemos el formulario
     onClose(); //Cerramos modal
   };

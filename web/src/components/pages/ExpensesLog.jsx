@@ -7,6 +7,7 @@ import * as FaIcons from "react-icons/fa6";
 import * as IoIcons from "react-icons/io5";
 import * as CgIcons from "react-icons/cg";
 import * as SiIcons from "react-icons/si";
+import * as HiIcons from "react-icons/hi2";
 import capitalizeLetter from '../../services/capitalizeLetter';
 import MonthYearSelector from "../utils/MonthYearSelector";
 import NewLog from "./NewLog";
@@ -58,7 +59,7 @@ function ExpensesLog({expenses}) {
   // Obtener el componente del icono
   const getIconComponent = (icon) => {
     const IconComponent = 
-      MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon];
+      MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon] || HiIcons[icon];
   
     if (!IconComponent) {
       console.warn(`Icono no encontrado: ${icon}`);
@@ -94,7 +95,7 @@ function ExpensesLog({expenses}) {
       </div>
     </section>
 
-    {/* Usamos Object.entries para transformar el objeto expensesGrouped en un array de [clave, valor]
+    {/* Se usa Object.entries para transformar el objeto expensesGrouped en un array de [clave, valor]
     Cada array: primer elemento es la fecha y el segundo es el array de gastos correspondienes a esa fecha */}
     {Object.entries(expensesGrouped).map(([date, expensesByDate]) => {
       const formattedDate = new Date(date).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}); //Formateamos fecha DD/MM/YYYY
@@ -112,7 +113,7 @@ function ExpensesLog({expenses}) {
               <div className="expense_item_details" key={expense.idexpenses}>
                 <IconCategoryComponent className="expense_item_icon"/>
                 <div className="expense_item_info">
-                  <p className="expense_item_desc">{(expense.desc || 'Sin descripción')}</p>
+                  <p className="expense_item_desc">{expense.desc}</p>
                   <p className="expense_item_category">{(expense.category_name)}</p>
                 </div>
                 <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
@@ -121,7 +122,7 @@ function ExpensesLog({expenses}) {
           })}
         </div> 
       );
-    })};
+    })}
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
