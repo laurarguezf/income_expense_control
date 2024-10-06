@@ -8,9 +8,9 @@ import * as IoIcons from "react-icons/io5";
 import * as CgIcons from "react-icons/cg";
 import * as SiIcons from "react-icons/si";
 import * as HiIcons from "react-icons/hi2";
-import capitalizeLetter from '../../services/capitalizeLetter';
 import MonthYearSelector from "../utils/MonthYearSelector";
 import NewLog from "./NewLog";
+import getCategoryColor from '../../services/categoryColor';
 
 
 function ExpensesLog({expenses}) {
@@ -107,11 +107,14 @@ function ExpensesLog({expenses}) {
           </div>
 
           {expensesByDate.map((expense) => {
-            const IconCategoryComponent = getIconComponent(expense.icon);  
+            const IconCategoryComponent = getIconComponent(expense.icon);
+            const backgroundColor = getCategoryColor(expense.category_name);  
+            console.log(expense.category_name, backgroundColor);
+            
 
             return (
               <div className="expense_item_details" key={expense.idexpenses}>
-                <IconCategoryComponent className="expense_item_icon"/>
+                <IconCategoryComponent className="expense_item_icon" style={{backgroundColor: backgroundColor}}/>
                 <div className="expense_item_info">
                   <p className="expense_item_desc">{expense.desc}</p>
                   <p className="expense_item_category">{(expense.category_name)}</p>

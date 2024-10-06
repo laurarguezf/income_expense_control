@@ -10,7 +10,7 @@ function App() {
 
   // VARIABLES DE ESTADO
 
-  const [ expenses, setExpenses ] = useState([]);
+  const [expenses, setExpenses] = useState([]);
 
   // USEEFFECT
 
@@ -22,7 +22,7 @@ function App() {
         const res = await fetch('http://localhost:3000/expenses')
         const data = await (res.json());
 
-        //Aplicamos capitalizeLetter para texto estético de la description
+        //Aplicamos capitalizeLetter para texto estético de la descripción del gasto
         const capitalizedData = data.map((item) => {
           return { ...item, desc: capitalizeLetter(item.desc)}
         });
