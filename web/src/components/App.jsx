@@ -15,29 +15,27 @@ function App() {
   // USEEFFECT
 
   useEffect(() => {
+    fetchExpenses();
+  }, []);
+
 
     //Fetch gastos/ingresos
-    async function fetchExpenses() {
-      try { 
-        const res = await fetch('http://localhost:3000/expenses')
-        const data = await (res.json());
+  const fetchExpenses = async () => {
+    try { 
+      const res = await fetch('http://localhost:3000/expenses')
+      const data = await (res.json());
 
-        //Aplicamos capitalizeLetter para texto estético de la descripción del gasto
-        const capitalizedData = data.map((item) => {
-          return { ...item, desc: capitalizeLetter(item.desc)}
-        });
+    //Aplicamos capitalizeLetter para texto estético de la descripción del gasto
+      const capitalizedData = data.map((item) => {
+        return { ...item, desc: capitalizeLetter(item.desc)}
+      });
 
-        setExpenses(capitalizedData);
-        }
-        catch(error) {
-          console.log('Error', error);
-        }
-    }
-
-    fetchExpenses();
-  },[])
-
-
+      setExpenses(capitalizedData);
+      }
+      catch(error) {
+        console.log('Error', error);
+      }
+  }
 
   // EVENTOS
 
@@ -49,7 +47,7 @@ function App() {
     <main className="main">
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/expenseslog" element={<ExpensesLog expenses={expenses}/>}/>
+        <Route path="/expenseslog" element={<ExpensesLog expenses={expenses} fetchExpenses={fetchExpenses} />}/>
         <Route path="*" element={<></>}></Route>
       </Routes>
       <Routes>

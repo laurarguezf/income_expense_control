@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
-function NewLog({ onClose }) {
+function NewLog({ onClose, fetchExpenses }) {
 
   const [formData, setFormData] = useState( {
     date: '',
@@ -16,8 +16,6 @@ function NewLog({ onClose }) {
   
   const [categories, setCategories] = useState( [] ); //Almacena las categorías 
   const [filteredCategories, setFilteredCategories] = useState( [] ); //Almacena las categorías filtradas según tipo de gasto
-
-
 
   useEffect(() => {
     //Fetch categorías
@@ -60,7 +58,7 @@ function NewLog({ onClose }) {
     const type = formData.type_name === 'gasto' ? 1 : 2;
 
     // Datos para enviar al servidor
-    const dataToSend = {
+    const newExpense = {
       date: formData.date,
       idcategories: category.idcategories,
       idtypes: type,
@@ -87,10 +85,13 @@ function NewLog({ onClose }) {
       }
     }
 
-    await postNewExpense('http://localhost:3000/expenses', dataToSend); //Enviar los datos al servidor y esperar respuesta
+    await postNewExpense('http://localhost:3000/expenses', newExpense); //Enviar los datos al servidor y esperar respuesta
+    await fetchExpenses();
 
     handleClickReset(); //Restablecemos el formulario
-    onClose(); //Cerramos modal
+
+    const newExpenseDate = new Date(formData.date); //Nos quedamos con el dato de la fecha del formulario
+    onClose(newExpenseDate.getMonth()); //Cerramos modal pasándole el valor del mes introducido en el formulario (del nuevo gasto)
   };
 
   const handleClickReset = () => {
@@ -104,12 +105,17 @@ function NewLog({ onClose }) {
     setFilteredCategories([]);
   };
 
+  const handleClose = () => {
+    handleClickReset();
+    onClose();
+  }
+
 
   return (
-    <div className="backdrop" onClick={onClose}>
+    <div className="backdrop" onClick={handleClose}>
       <div className="newlog" onClick={(ev) => ev.stopPropagation()}>
         
-        <IoMdCloseCircleOutline className="newlog_closing_btn" onClick={onClose} />
+        <IoMdCloseCircleOutline className="newlog_closing_btn" onClick={handleClose} />
 
         <section>
           <h3 className="newlog_title">Input your new expense data</h3>

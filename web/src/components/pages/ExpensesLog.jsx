@@ -13,10 +13,11 @@ import NewLog from "./NewLog";
 import getCategoryColor from '../../services/categoryColor';
 
 
-function ExpensesLog({expenses}) {
+function ExpensesLog({expenses, fetchExpenses}) {
   
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Año actual
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Mes actual
+  const [showNewLog, setShowNewLog] = useState(false); //Para controlar la visibilidad del modal NewLog
 
   // Filtrar los gastos por el mes y año seleccionados
   const filteredExpenses = expenses.filter((expense) => {
@@ -53,8 +54,6 @@ function ExpensesLog({expenses}) {
 
   const balance = totals.income - totals.expenses;
 
-  //Modal Newlog
-  const [ showNewLog, setShowNewLog ] = useState( false ); //Para controlar la visibilidad del modal NewLog
 
   // Obtener el componente del icono
   const getIconComponent = (icon) => {
@@ -68,6 +67,13 @@ function ExpensesLog({expenses}) {
     return IconComponent;
   };
 
+  // Función para cerrar el modal y actualizar el mes
+  const handleCloseNewLog = (month) => {
+    setShowNewLog(false); // Cerrar el modal
+    if (month !== undefined) {
+      setSelectedMonth(month); // Actualizar el mes seleccionado
+    }
+  };
   
   return (
   <>
@@ -109,8 +115,6 @@ function ExpensesLog({expenses}) {
           {expensesByDate.map((expense) => {
             const IconCategoryComponent = getIconComponent(expense.icon);
             const backgroundColor = getCategoryColor(expense.category_name);  
-            console.log(expense.category_name, backgroundColor);
-            
 
             return (
               <div className="expense_item_details" key={expense.idexpenses}>
@@ -129,7 +133,7 @@ function ExpensesLog({expenses}) {
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
-    {showNewLog && <NewLog onClose={() => setShowNewLog(false)}/>}
+    {showNewLog && <NewLog onClose={handleCloseNewLog} fetchExpenses={fetchExpenses}/>}
 
   </>
 )}
