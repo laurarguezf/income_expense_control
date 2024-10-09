@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Landing from './Landing';
 import ExpensesLog from './pages/ExpensesLog';
 import NewLog from './pages/NewLog';
+import ExpenseDetail from './pages/ExpenseDetail';
 import capitalizeLetter from '../services/capitalizeLetter';
 
 function App() {
@@ -41,6 +42,37 @@ function App() {
 
   // FUNCIONES DE RENDERIZADO
 
+  const showDetailedExpense = (id) => {
+    const detailedExpense = expenses.find(expense => expense.idexpenses === parseFloat(id));
+    return detailedExpense; 
+  }
+
+  const deleteExpense = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/expenses/${id}`, {
+        method: 'DELETE',
+      });
+      fetchExpenses(); // Refrescar la lista de gastos
+    } catch (error) {
+      console.error('Error al eliminar el gasto:', error);
+    }
+  };
+
+  const updateExpense = async (id, updatedExpense) => {
+    try {
+      await fetch(`http://localhost:3000/expenses/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedExpense),
+      });
+      fetchExpenses(); // Refrescar la lista de gastos
+    } catch (error) {
+      console.error('Error al actualizar el gasto:', error);
+    }
+  };
+
 
   return (
     
@@ -48,6 +80,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/expenseslog" element={<ExpensesLog expenses={expenses} fetchExpenses={fetchExpenses} />}/>
+        <Route path="/details/:id" element={<ExpenseDetail showDetailedExpense={showDetailedExpense} deleteExpense={deleteExpense} updateExpense={updateExpense}/>} />
         <Route path="*" element={<></>}></Route>
       </Routes>
       <Routes>

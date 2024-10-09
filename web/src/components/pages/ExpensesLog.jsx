@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { CiBadgeDollar } from "react-icons/ci";
 import { CiBank } from "react-icons/ci";
 import { CiBag1 } from "react-icons/ci";
@@ -117,7 +118,8 @@ function ExpensesLog({expenses, fetchExpenses}) {
             const backgroundColor = getCategoryColor(expense.category_name);  
 
             return (
-              <div className="expense_item_details" key={expense.idexpenses}>
+              <div className="expense_item_details" key={expense.idexpenses} onClick={() => {<Link to={`/details/${expense.expensesid}`} ></Link>}} //Navegar a la pagina de detalles del gasto 
+              >
                 <IconCategoryComponent className="expense_item_icon" style={{backgroundColor: backgroundColor}}/>
                 <div className="expense_item_info">
                   <p className="expense_item_desc">{expense.desc}</p>

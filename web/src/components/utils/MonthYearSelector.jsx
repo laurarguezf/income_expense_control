@@ -26,7 +26,7 @@ function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSele
     <section className="month_selector">
       <button className="selected_month_btn" onClick={toggleCalendar}>
         {months[selectedMonth]}, {currentYear} {/* Muestra el mes y el año seleccionados */}
-        <IoIosArrowDown /> 
+        <IoIosArrowDown className="selected_month_btn_icon"/> 
       </button>
   
       {showCalendar && (

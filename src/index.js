@@ -147,3 +147,72 @@ server.post('/expenses', async (req, res) => {
 	//Cerramos conexión
 	await connection.close();
 });
+
+
+// -------- Actualizar un gasto/ingreso existente en 'expenses' --------
+server.put('/expenses/:id', async (req, res) => {
+	//Nos conectamos
+	const connection = await getConnection();
+
+	if( !connection ) {
+		res.status(500).json({success: false, error: 'Error con la conexión.'});
+	}
+
+	//Modificamos datos ya existentes
+	const [results] = await connection.execute(
+		`UPDATE expenses 
+			SET date=?, amount=?, \`desc\`=?, idcategories=?, idtypes=?
+			WHERE idexpenses=?`,
+			[req.body.date, req.body.amount, req.body.desc || null, req.body.idcategories, req.body.idtypes, req.params.id]);
+
+	//Devolvemos un JSON en función de los resultados del update
+	if( results.changedRows === 1 ) {
+		res.status(200).json({
+			success: true,
+			message: 'Gasto/ingreso actualizado correctamente'
+		});
+	}
+	else {
+		res.status(500).json({
+			success: false,
+			error: 'Error al actualizar el gasto/ingreso'
+		});
+	}
+
+	//Cerramos conexión
+	await connection.close();
+});
+
+
+// -------- Eliminar un gasto/ingreso existente en 'expenses' --------
+server.delete('/expenses/:id', async (req, res) => {
+	//Nos conectamos
+	const connection = await getConnection();
+
+	if( !connection ) {
+		res.status(500).json({success: false, error: 'Error con la conexión.'});
+	}
+
+	//Borramos datos ya existentes
+	const [results] = await connection.execute(
+		`DELETE FROM expenses
+			WHERE idexpenses=?`,
+			[req.params.id]);
+
+	//Devolvemos un JSON en función de los resultados del delete
+	if( results.affectedRows === 1 ) {
+		res.status(200).json({
+			success: true,
+			message: 'Gasto/ingreso eliminado correctamente'
+		});
+	}
+	else {
+		res.status(500).json({
+			success: false,
+			error: 'Error al eliminar el gasto/ingreso'
+		});
+	}
+
+	//Cerramos conexión	
+	await connection.close(); 
+});
