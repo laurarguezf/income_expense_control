@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
-function NewLog({ onClose, fetchExpenses }) {
+function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) {
+
 
   const [formData, setFormData] = useState( {
     date: '',
@@ -14,24 +15,8 @@ function NewLog({ onClose, fetchExpenses }) {
 
   console.log(formData);
   
-  const [categories, setCategories] = useState( [] ); //Almacena las categorías 
+  
   const [filteredCategories, setFilteredCategories] = useState( [] ); //Almacena las categorías filtradas según tipo de gasto
-
-  useEffect(() => {
-    //Fetch categorías
-    async function fetchCategories() {
-      try {
-        const res = await fetch('http://localhost:3000/categories')
-        const data = await res.json();
-        setCategories(data);
-      }
-      catch(error) {
-        console.log('Error', error);
-      }
-    }
-
-    fetchCategories();
-  },[]);
 
   // Controlar los cambios en los inputs del formulario
   const handleInputChange = (ev) => {
@@ -42,7 +27,7 @@ function NewLog({ onClose, fetchExpenses }) {
 
     // Filtrar categorías según el tipo de gasto seleccionado en el formulario
     if (name === "type_name") {
-      const filteredCat = categories.filter(category => category.type_name === value)
+      const filteredCat = filterCategoriesByType(value)
       setFilteredCategories(filteredCat);
     } 
   };

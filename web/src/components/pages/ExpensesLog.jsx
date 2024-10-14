@@ -14,7 +14,7 @@ import NewLog from "./NewLog";
 import getCategoryColor from '../../services/categoryColor';
 
 
-function ExpensesLog({expenses, fetchExpenses}) {
+function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByType}) {
   
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Año actual
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Mes actual
@@ -62,7 +62,7 @@ function ExpensesLog({expenses, fetchExpenses}) {
       MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon] || HiIcons[icon];
   
     if (!IconComponent) {
-      console.warn(`Icono no encontrado: ${icon}`);
+      console.log(`Icono no encontrado: ${icon}`);
     }
     
     return IconComponent;
@@ -116,18 +116,17 @@ function ExpensesLog({expenses, fetchExpenses}) {
           {expensesByDate.map((expense) => {
             const IconCategoryComponent = getIconComponent(expense.icon);
             const backgroundColor = getCategoryColor(expense.category_name);  
-
+            
             return (
-              <div className="expense_item_details" key={expense.idexpenses} onClick={() => {<Link to={`/details/${expense.expensesid}`} ></Link>}} //Navegar a la pagina de detalles del gasto 
-              >
+              <Link to={`/details/${expense.idexpenses}`} className="expense_item_details" key={expense.idexpenses}>
                 <IconCategoryComponent className="expense_item_icon" style={{backgroundColor: backgroundColor}}/>
                 <div className="expense_item_info">
                   <p className="expense_item_desc">{expense.desc}</p>
                   <p className="expense_item_category">{(expense.category_name)}</p>
                 </div>
                 <p className="expense_item_amount" style={{color: expenseColor(expense.type_name)}}>{(expense.type_name === "gasto" ? -expense.amount : expense.amount).toFixed(2)}€</p>
-            </div>
-            )
+              </Link>
+            );
           })}
         </div> 
       );
@@ -135,7 +134,7 @@ function ExpensesLog({expenses, fetchExpenses}) {
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
-    {showNewLog && <NewLog onClose={handleCloseNewLog} fetchExpenses={fetchExpenses}/>}
+    {showNewLog && <NewLog onClose={handleCloseNewLog} fetchExpenses={fetchExpenses} categories={categories} filterCategoriesByType={filterCategoriesByType}/>}
 
   </>
 )}

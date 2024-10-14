@@ -52,11 +52,13 @@
 }
   
 .expense_item_details {
+  text-decoration: none;
   display: grid;
   grid-template-columns: 0.6fr 2.4fr 1fr; 
   align-items: center; 
   border-top: 1px solid #ddd;
   padding-block: 10px;
+  color: black;
 
   .expense_item_icon {
     grid-column: 1;

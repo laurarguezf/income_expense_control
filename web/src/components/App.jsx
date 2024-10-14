@@ -12,11 +12,13 @@ function App() {
   // VARIABLES DE ESTADO
 
   const [expenses, setExpenses] = useState([]);
+  const [categories, setCategories] = useState( [] ); //Almacena las categorías 
 
   // USEEFFECT
 
   useEffect(() => {
     fetchExpenses();
+    fetchCategories();
   }, []);
 
 
@@ -32,15 +34,33 @@ function App() {
       });
 
       setExpenses(capitalizedData);
-      }
-      catch(error) {
-        console.log('Error', error);
-      }
+    }
+    catch(error) {
+      console.log('Error', error);
+    }
   }
+
+    //Fetch categories
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/categories')
+      const data = await res.json();
+      setCategories(data);
+    }
+    catch(error) {
+      console.log('Error', error);
+    }
+  }
+
 
   // EVENTOS
 
   // FUNCIONES DE RENDERIZADO
+
+  //Filtrar categorías por tipo de gasto
+  const filterCategoriesByType = (type_name) => {
+    return categories.filter(category => category.type_name === type_name)
+  }
 
   const showDetailedExpense = (id) => {
     const detailedExpense = expenses.find(expense => expense.idexpenses === parseFloat(id));
@@ -79,13 +99,16 @@ function App() {
     <main className="main">
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/expenseslog" element={<ExpensesLog expenses={expenses} fetchExpenses={fetchExpenses} />}/>
-        <Route path="/details/:id" element={<ExpenseDetail showDetailedExpense={showDetailedExpense} deleteExpense={deleteExpense} updateExpense={updateExpense}/>} />
-        <Route path="*" element={<></>}></Route>
-      </Routes>
-      <Routes>
-        <Route path="/newlog" element={<NewLog />}/>
-        <Route path="*" element={<></>}></Route>
+        <Route path="/expenseslog" element={<ExpensesLog expenses={expenses} fetchExpenses={fetchExpenses} categories={categories} filterCategoriesByType={filterCategoriesByType}/>}/>
+        <Route path="/newlog" element={<NewLog categories={categories} filterCategoriesByType={filterCategoriesByType}/>} />
+        <Route path="/details/:id" element={
+          <ExpenseDetail 
+            filterCategoriesByType={filterCategoriesByType} 
+            showDetailedExpense={showDetailedExpense} 
+            deleteExpense={deleteExpense} 
+            updateExpense={updateExpense}
+          />} 
+        />
       </Routes>
     </main>
       
