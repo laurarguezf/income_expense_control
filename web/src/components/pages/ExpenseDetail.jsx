@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
 function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpense, updateExpense}) {
 
-  const params = useParams();
-  const [isEditing, setIsEditing] = useState(false);
-  const [expense, setExpense] = useState();
-  const [filteredCategories, setFilteredCategories] = useState([]);
-  const detailedExpenseInfo = showDetailedExpense( params.id );
+  const params = useParams(); //Obtiene los parámetros de la url (el id del gasto/ingreso)
+  const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false); //Para controlar si el formulario de edición se está usando
+  const [expense, setExpense] = useState(); //Para almacenar los detalles del gasto/ingreso
+  const [filteredCategories, setFilteredCategories] = useState([]); //Para almacenar las categorías filtradas
 
-  console.log(expense);
-  
+  const detailedExpenseInfo = showDetailedExpense( params.id ); //Obtiene la información detallada del gasto/ingreso usando su id
 
   useEffect(() => {
     if (detailedExpenseInfo) {
@@ -23,35 +22,31 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
     }
   }, [detailedExpenseInfo, filterCategoriesByType]);
 
+
+  //Manejar el cambio del tipo de gasto (gasto/ingreso) al cambiar su valor en el formulario de edición
   const handleTypeChange = (ev) => {
     const newType = ev.currentTarget.value;
     setExpense({...expense, type_name: newType});
-    const filtered = filterCategoriesByType(newType);
+    const filtered = filterCategoriesByType(newType); //Aquí llama a la función que filtra categorías por tipo de gasto
     setFilteredCategories(filtered);
   };
  
-  if (!detailedExpenseInfo) {
-    return ( 
-      <div>
-        <p>No expense found</p>
-        <Link to="/expenseslog" className="return_link">Return to main page</Link>
-      </div>
-      )
-  }
-
+  //Manejar la eliminación de un gasto/ingreso
   const handleDelete = async () => {
-    await deleteExpense(params.id); // Llamar a la función para eliminar
-    Navigate('expenses');
+    await deleteExpense(params.id); //Llamar a la función para eliminar
+    navigate('/expenseslog'); //Volvemos a la pagina de gastos/ingresos una vez eliminado
   };
   
+  //Manejar la actualización de un gasto/ingreso
   const handleUpdate = async () => {
     const formattedDate = new Date(expense.date).toLocaleDateString('en-CA').split('T')[0]; // Formatear fecha a YYYY-MM-DD
     
-    // Obtener el id de la categoría seleccionada
+    //Obtener el id de la categoría seleccionada
     const category = filteredCategories.find(cat => cat.category_name === expense.category_name);
-    // Obtener el id del tipo de gasto ( 1 para gasto, 2 para ingreso )
+    //Obtener el id del tipo de gasto ( 1 para gasto, 2 para ingreso )
     const type = expense.type_name === 'gasto' ? 1 : 2;
     
+    //Objeto con los datos actualizados (si no se tocan coge los que tiene ya anteriormente)
     const updatedExpense = {
       ...expense, 
       date: formattedDate, 
@@ -63,53 +58,69 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
       amount: expense.amount
     };
 
-    await updateExpense(params.id, updatedExpense); // Llamar a la función para actualizar
-    setIsEditing(false); // Dejar de editar
+    await updateExpense(params.id, updatedExpense); //Llamar a la función para actualizar
+    setIsEditing(false); //Dejar de editar
   };
   
   
   return (
     <>
-      <div className="expense_detail">
-        {isEditing ? (
-          <div>
-            {/* Formulario de edición */}
-            <input type="date" value={new Date(expense.date).toLocaleDateString('en-CA').split('T')[0]} required onChange={(e) => setExpense({ ...expense, date: e.target.value })}/>
-            <select required value={expense.type_name} className="form_group_input" onChange={handleTypeChange}>
-              <option value="gasto">Expense</option>
-              <option value="ingreso">Income</option>
-            </select>
-            <select required value={expense.category_name} className="form_group_input" onChange={(e) => setExpense({ ...expense, category_name: e.target.value })}>
-              <option>Select</option>
-              {filteredCategories.map((category) => (
-                <option key={category.idcategories} value={category.category_name}>{category.category_name}</option>
-              ))}
-            </select>
-            <input type="text" value={expense.desc || ''} onChange={(e) => setExpense({ ...expense, desc: e.target.value })}/>
-            <input type="number" value={expense.amount} onChange={(e) => setExpense({ ...expense, amount: parseFloat(e.target.value) })}/>
+    {/*Comprobamos es si exite información del gasto/ingreso seleccionado*/}
+    {detailedExpenseInfo ? (
+      <>
+        {/*Cuando si hay datos, mostramos la información de gasto/ingreso*/}
+        <div className="expense_detail">
+          {/*Comprobamos si estamos en modo edición. En modo edición se muestra formulario para cambiar datos. En modo no edición se muestra información del gasto*/}
+          {isEditing ? ( 
             
-            <button onClick={handleUpdate}>Save</button>
-          </div>
-        ) : (
-          <div>
-            {/* Información del gasto */}
+            <div>
+              <input type="date" value={new Date(expense.date).toLocaleDateString('en-CA').split('T')[0]}required onChange={(ev) => setExpense({ ...expense, date: ev.target.value })} />
+              <select required value={expense.type_name} className="form_group_input" onChange={handleTypeChange} >
+                <option value="gasto">Expense</option>
+                <option value="ingreso">Income</option> 
+              </select>
+              <select required value={expense.category_name} className="form_group_input" onChange={(ev) => setExpense({ ...expense, category_name: ev.target.value })} >
+                <option>Select</option>
+                {filteredCategories.map((category) => (
+                  <option key={category.idcategories} value={category.category_name}>{category.category_name}</option>
+                ))} {/*Se mapean todas las categorías según el tipo de gasto/ingreso*/}
+              </select>
+              <input type="text" value={expense.desc || ''} onChange={(ev) => setExpense({ ...expense, desc: ev.target.value })} />
+              <input type="number" value={expense.amount} onChange={(ev) => setExpense({ ...expense, amount: parseFloat(ev.target.value) })} />
+                
+              <button onClick={handleUpdate}>Save</button> {/*Botón para guardar y actualizar los cambios*/}
+            </div> 
+
+          ) : (
+
             <div className="expense_item">
               <div className="expense_item_header">
-                <h3 className="expense_item_date">{new Date(detailedExpenseInfo.date).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'})}</h3>
+                <h3 className="expense_item_date">
+                  {new Date(detailedExpenseInfo.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                </h3>
               </div>
               <div className="expense_item_details">
                 <p className="expense_item_desc">{detailedExpenseInfo.desc}</p>
-                <p className="expense_item_category">{(detailedExpenseInfo.category_name)}</p>
-                <p className="expense_item_amount">{(detailedExpenseInfo.type_name === "gasto" ? -detailedExpenseInfo.amount : detailedExpenseInfo.amount).toFixed(2)}€</p>
+                <p className="expense_item_category">{(detailedExpenseInfo.category_name)}</p> 
+                <p className="expense_item_amount">
+                  {(detailedExpenseInfo.type_name === "gasto" ? -detailedExpenseInfo.amount : detailedExpenseInfo.amount).toFixed(2)}€
+                </p>
               </div>
             </div>
-          </div>
-        )}
-      </div> 
+          )}
+        </div> 
 
-      <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</button>
-      <button onClick={handleDelete}>Delete</button>
-  
+        <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</button> {/*Botón para alternar entre modo edición y no edición*/}
+        <button onClick={handleDelete}>Delete</button> {/*Botón para borrar gasto/ingreso*/}
+        <Link to="/expenseslog" className="return_link">Return to main page</Link>
+      </>
+    ) : (
+      <div>
+        {/*Cuando no se encuentra el gasto/ingreso*/}
+        <p>No expense found</p>
+        <Link to="/expenseslog" className="return_link">Return to main page</Link>
+      </div>
+    )}
     </>
   );
 }

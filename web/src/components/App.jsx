@@ -11,7 +11,7 @@ function App() {
 
   // VARIABLES DE ESTADO
 
-  const [expenses, setExpenses] = useState([]);
+  const [expenses, setExpenses] = useState([]); //Almacena la lista de gastos
   const [categories, setCategories] = useState( [] ); //Almacena las categorías 
 
   // USEEFFECT
@@ -22,7 +22,7 @@ function App() {
   }, []);
 
 
-    //Fetch gastos/ingresos
+  //Fetch gastos/ingresos desde la API
   const fetchExpenses = async () => {
     try { 
       const res = await fetch('http://localhost:3000/expenses')
@@ -40,7 +40,7 @@ function App() {
     }
   }
 
-    //Fetch categories
+  //Fetch categories desde la API
   const fetchCategories = async () => {
     try {
       const res = await fetch('http://localhost:3000/categories')
@@ -60,13 +60,15 @@ function App() {
   //Filtrar categorías por tipo de gasto
   const filterCategoriesByType = (type_name) => {
     return categories.filter(category => category.type_name === type_name)
-  }
+  };
 
+  //Buscar un gasto/ingreso mediante su id
   const showDetailedExpense = (id) => {
     const detailedExpense = expenses.find(expense => expense.idexpenses === parseFloat(id));
     return detailedExpense; 
-  }
+  };
 
+  //Función para eliminar un gasto/ingreso
   const deleteExpense = async (id) => {
     try {
       await fetch(`http://localhost:3000/expenses/${id}`, {
@@ -78,6 +80,7 @@ function App() {
     }
   };
 
+  //Función para actualizar un gasto/ingreso
   const updateExpense = async (id, updatedExpense) => {
     try {
       await fetch(`http://localhost:3000/expenses/${id}`, {

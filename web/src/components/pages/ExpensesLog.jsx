@@ -16,11 +16,11 @@ import getCategoryColor from '../../services/categoryColor';
 
 function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByType}) {
   
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Año actual
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Mes actual
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Para almacenar año actual
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Para almacenar mes actual
   const [showNewLog, setShowNewLog] = useState(false); //Para controlar la visibilidad del modal NewLog
 
-  // Filtrar los gastos por el mes y año seleccionados
+  //Filtrar los gastos por el mes y año seleccionados
   const filteredExpenses = expenses.filter((expense) => {
     const expenseDate = new Date(expense.date);
     return (
@@ -29,18 +29,18 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
     );
   });
 
-  // Ordenar gastos por fecha (más reciente primero)
+  //Ordenar gastos por fecha (más reciente primero)
   const sortedExpenses = filteredExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados y ordenados)
+  //Usar Object.groupBy para agrupar los gastos por fecha (una vez filtrados y ordenados)
   const expensesGrouped = Object.groupBy(sortedExpenses, ({ date }) => date);
 
-  // Darle estilo de color según el tipo de gasto
+  //Darle estilo de color según el tipo de gasto
   const expenseColor = (type) => {
     return type === "ingreso" ? "mediumseagreen" : "lightcoral";
   };
 
-  // Cálculo de gastos e ingresos totales
+  //Cálculo de gastos e ingresos totales
   const totals = sortedExpenses.reduce((accumulator, expense) => {
 
     if (expense.type_name === "ingreso") {
@@ -51,12 +51,11 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
     }
     return accumulator;
 
-  }, { income: 0, expenses: 0 });
+  }, { income: 0, expenses: 0 }); //Datos iniciales para el acumulador
 
-  const balance = totals.income - totals.expenses;
+  const balance = totals.income - totals.expenses; //Cálculo del balance
 
-
-  // Obtener el componente del icono
+  //Función para obtener el componente del icono
   const getIconComponent = (icon) => {
     const IconComponent = 
       MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon] || HiIcons[icon];
@@ -68,11 +67,11 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
     return IconComponent;
   };
 
-  // Función para cerrar el modal y actualizar el mes
+  //Función para cerrar el modal y actualizar el mes
   const handleCloseNewLog = (month) => {
-    setShowNewLog(false); // Cerrar el modal
+    setShowNewLog(false); //Cerrar el modal
     if (month !== undefined) {
-      setSelectedMonth(month); // Actualizar el mes seleccionado
+      setSelectedMonth(month); //Actualizar el mes seleccionado
     }
   };
   
@@ -113,7 +112,7 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
             <h3 className="expense_item_date">{formattedDate}</h3>
           </div>
 
-          {expensesByDate.map((expense) => {
+          {expensesByDate.map((expense) => { //Mapeamos los gastos
             const IconCategoryComponent = getIconComponent(expense.icon);
             const backgroundColor = getCategoryColor(expense.category_name);  
             

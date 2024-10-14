@@ -4,7 +4,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 
 function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) {
 
-
+  //Para almacenar los datos del formulario
   const [formData, setFormData] = useState( {
     date: '',
     type_name: '',
@@ -13,19 +13,16 @@ function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) 
     amount: ''
   });
 
-  console.log(formData);
-  
-  
   const [filteredCategories, setFilteredCategories] = useState( [] ); //Almacena las categorías filtradas según tipo de gasto
 
-  // Controlar los cambios en los inputs del formulario
+  //Controlar los cambios en los inputs del formulario
   const handleInputChange = (ev) => {
     const { name, value } = ev.currentTarget;
     setFormData((data) => ({
       ...data, [name]: value
     }));
 
-    // Filtrar categorías según el tipo de gasto seleccionado en el formulario
+    //Filtrar categorías según el tipo de gasto seleccionado en el formulario
     if (name === "type_name") {
       const filteredCat = filterCategoriesByType(value)
       setFilteredCategories(filteredCat);
@@ -37,12 +34,12 @@ function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) 
     ev.preventDefault();
     console.log('Formulario enviado:', formData);
 
-    // Obtener el id de la categoría seleccionada
+    //Obtener el id de la categoría seleccionada
     const category = filteredCategories.find(cat => cat.category_name === formData.category_name);
-    // Obtener el id del tipo de gasto ( 1 para gasto, 2 para ingreso )
+    //Obtener el id del tipo de gasto ( 1 para gasto, 2 para ingreso )
     const type = formData.type_name === 'gasto' ? 1 : 2;
 
-    // Datos para enviar al servidor
+    //Objeto con los datos para enviar al servidor
     const newExpense = {
       date: formData.date,
       idcategories: category.idcategories,
@@ -51,7 +48,7 @@ function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) 
       desc: formData.desc || null
     };
 
-    // Función con fetch para envíar la petición POST
+    //Función para enviar una petición POST al servidor
     async function postNewExpense(url = '', data = {}) {
       try {
         const res = await fetch(url, {
@@ -71,14 +68,15 @@ function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) 
     }
 
     await postNewExpense('http://localhost:3000/expenses', newExpense); //Enviar los datos al servidor y esperar respuesta
-    await fetchExpenses();
+    await fetchExpenses(); //Llama a la función para refrescar la lista de gastos
 
-    handleClickReset(); //Restablecemos el formulario
+    handleClickReset(); //Llama a la función que resetea el formulario
 
     const newExpenseDate = new Date(formData.date); //Nos quedamos con el dato de la fecha del formulario
     onClose(newExpenseDate.getMonth()); //Cerramos modal pasándole el valor del mes introducido en el formulario (del nuevo gasto)
   };
 
+  //Función que resetea el formulario
   const handleClickReset = () => {
     setFormData({
       date: '',
@@ -87,12 +85,13 @@ function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) 
       desc: '',
       amount: ''
     });
-    setFilteredCategories([]);
+    setFilteredCategories([]); //Limpia las categorías filtradas
   };
 
+  //Función para cerrar el modal y restablecer formulario
   const handleClose = () => {
-    handleClickReset();
-    onClose();
+    handleClickReset(); //Resetea formulario
+    onClose(); //Cierra modal
   }
 
 
@@ -123,7 +122,7 @@ function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) 
                 <option value="">Select</option>
                 {filteredCategories.map((category) => (
                   <option key={category.idcategories} value={category.category_name}>{category.category_name}</option>
-                ))}
+                ))} {/*Se mapean todas las categorías según el tipo de gasto/ingreso*/}
               </select>
             </fieldset>
             <fieldset className="form_group">

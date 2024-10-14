@@ -29,7 +29,7 @@ function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSele
         <IoIosArrowDown className="selected_month_btn_icon"/> 
       </button>
   
-      {showCalendar && (
+      {showCalendar && ( //Si showCalendar=true se renderiza el calendario
         <div className="calendar">
           <div className="calendar_header">
             <IoArrowBackCircle className="calendar_header_btn_icon" onClick={() => changeYear(-1)}/>
@@ -37,7 +37,7 @@ function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSele
             <IoArrowForwardCircle className="calendar_header_btn_icon" onClick={() => changeYear(1)}/>
           </div>
           <div className="calendar_months">
-            {months.map((month, index) => (
+            {months.map((month, index) => ( //Mapea sobre los meses para crear contenedores de cada mes
               <div 
                 key={index} 
                 className={`calendar_month ${selectedMonth === index ? 'month_selected' : ''}`} 
@@ -46,7 +46,7 @@ function MonthYearSelector({ currentYear, setCurrentYear, selectedMonth, setSele
                   setCurrentYear(calendarYear); //Actualiza el año que se muestra en el botón
                   toggleCalendar(); //Cierra el calendario al seleccionar
                 }}
-                >{month}
+                >{month} {/*Muestra el nombre del mes*/}
               </div>
             ))}
           </div>
