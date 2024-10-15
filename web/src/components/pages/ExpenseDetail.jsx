@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { MdDeleteForever } from "react-icons/md";
 
 
 function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpense, updateExpense}) {
@@ -68,6 +69,11 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
     {/*Comprobamos es si exite información del gasto/ingreso seleccionado*/}
     {detailedExpenseInfo ? (
       <>
+        <div className="buttons_detailed_container">
+          <Link to="/expenseslog" className="return_link">Return to main page</Link>
+          <MdDeleteForever className="btn_delete" onClick={handleDelete}/> {/*Botón para borrar gasto/ingreso*/}
+        </div>
+        
         {/*Cuando si hay datos, mostramos la información de gasto/ingreso*/}
         <div className="expense_detail">
           {/*Comprobamos si estamos en modo edición. En modo edición se muestra formulario para cambiar datos. En modo no edición se muestra información del gasto*/}
@@ -93,26 +99,34 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
 
           ) : (
 
-            <div className="expense_item">
-              <div className="expense_item_header">
-                <h3 className="expense_item_date">
+            <div className="expense_detailed">
+              <div className="expense_detailed_header">
+                <h3 className="expense_detailed_date">
                   {new Date(detailedExpenseInfo.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                 </h3>
               </div>
-              <div className="expense_item_details">
-                <p className="expense_item_desc">{detailedExpenseInfo.desc}</p>
-                <p className="expense_item_category">{(detailedExpenseInfo.category_name)}</p> 
-                <p className="expense_item_amount">
-                  {(detailedExpenseInfo.type_name === "gasto" ? -detailedExpenseInfo.amount : detailedExpenseInfo.amount).toFixed(2)}€
-                </p>
-              </div>
+              <table className="expense_item_detailed">
+                <tr>
+                  <th className="expense_item_detailed_label">Description:</th>
+                  <td className="expense_item_detailed_value">{detailedExpenseInfo.desc || 'Sin descripción'}</td>
+                </tr>
+                <tr>
+                  <th className="expense_item_detailed_label">Category:</th>
+                  <td className="expense_item_detailed_value">{detailedExpenseInfo.category_name}</td>
+                </tr>
+                <tr>
+                  <th className="expense_item_detailed_label">Amount:</th>
+                  <td className="expense_item_detailed_value">
+                    {(detailedExpenseInfo.type_name === "gasto" ? -detailedExpenseInfo.amount : detailedExpenseInfo.amount).toFixed(2)}€
+                  </td>
+                </tr>
+              </table>
             </div>
           )}
         </div> 
 
-        <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</button> {/*Botón para alternar entre modo edición y no edición*/}
-        <button onClick={handleDelete}>Delete</button> {/*Botón para borrar gasto/ingreso*/}
-        <Link to="/expenseslog" className="return_link">Return to main page</Link>
+        <button className="btn_edit_cancel" onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</button> {/*Botón para alternar entre modo edición y no edición*/}
+      
       </>
     ) : (
       <div>

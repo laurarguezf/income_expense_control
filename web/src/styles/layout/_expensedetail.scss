@@ -1,0 +1,91 @@
+.buttons_detailed_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  padding-top: 50px;
+}
+
+.return_link {
+  font-size: 0.8rem;
+  color: $color-violet;
+  background-color: $color-ghost-white;
+  border: solid 1px rgba($color-lilac, 0.5);
+  padding: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+
+  &:hover {
+    scale: 0.95;
+  }
+}
+
+.btn_delete {
+  color: $color-violet;
+  min-height: 28px;
+  min-width: 28px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    color: lighten($color-violet, 20%); 
+    scale: 0.85;
+  }
+}
+
+.expense_detail {
+  margin-top: 10px;
+}
+
+.expense_detailed {
+  background-color: $color-ghost-white;
+  border: 1px solid #ddd;
+  width: 300px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 30px 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .expense_detailed_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .expense_detailed_date {
+      font-size: 1em;
+      color: #888;
+    }
+  } 
+}
+
+.expense_item_detailed {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  color: black;
+  padding-top: 20px;
+
+  .expense_item_detailed_label {
+    text-align: left;
+    padding-top: 20px; 
+  }
+      
+  .expense_item_detailed_value {
+    text-align: right;
+  }
+}
+
+.btn_edit_cancel {
+  background-color: $color-lilac; 
+  color: white;
+  width: 300px;
+  border: none;
+  border-radius: 5px; 
+  padding-block: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s; 
+  
+  &:hover {
+    background-color: darken($color-lilac, 30%); 
+    scale: 0.9;
+  }
+}
