@@ -1,34 +1,20 @@
 export default function getCategoryColor(categoryName) {
-  switch(categoryName) {
-    case 'Alimentación':
-      return 'lightblue';
-    case 'Transporte':
-      return 'lightpink';
-    case 'Vivienda':
-      return 'orange';
-    case 'Salud':
-      return 'darkKhaki';
-    case 'Ocio':
-      return 'plum';
-    case 'Ropa':
-      return 'darkseagreen';
-    case 'Educación':
-      return 'navajowhite';
-    case 'Cuidado personal':
-      return 'brown';
-    case 'Otros':
-      return 'rosybrown';
-    case 'Salario':
-      return 'moccasin';
-    case 'Reembolsos':
-      return 'coral';
-    case 'Ventas':
-      return 'mediumaquamarine';
-    case 'Otros ingresos':
-      return 'thistle';
-    case 'Gastos':
-      return 'lightgoldenrodyellow';
-    default:
-      return 'lightgray';
-  }  
+  const categoryColors = {
+    'Alimentación': 'lightblue',
+    'Transporte': 'lightpink',
+    'Vivienda': 'orange',
+    'Salud': 'darkKhaki',
+    'Ocio': 'plum',
+    'Ropa': 'darkseagreen',
+    'Educación': 'navajowhite',
+    'Cuidado personal': 'brown',
+    'Otros': 'rosybrown',
+    'Salario': 'moccasin',
+    'Reembolsos': 'coral',
+    'Ventas': 'mediumaquamarine',
+    'Otros ingresos': 'thistle',
+    'Gastos': 'lightgoldenrodyellow',
+  };
+
+  return categoryColors[categoryName] || 'lightgray'; // Retorna 'lightgray' si la categoría no está definida
 }
