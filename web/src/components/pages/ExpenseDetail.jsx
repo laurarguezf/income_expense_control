@@ -61,6 +61,7 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
 
     await updateExpense(params.id, updatedExpense); //Llamar a la función para actualizar
     setIsEditing(false); //Dejar de editar
+    navigate('/expenseslog'); //Volvemos a la pagina de gastos/ingresos una vez actualizado
   };
   
   
@@ -79,22 +80,25 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
           {/*Comprobamos si estamos en modo edición. En modo edición se muestra formulario para cambiar datos. En modo no edición se muestra información del gasto*/}
           {isEditing ? ( 
             
-            <div>
-              <input type="date" value={new Date(expense.date).toLocaleDateString('en-CA').split('T')[0]}required onChange={(ev) => setExpense({ ...expense, date: ev.target.value })} />
-              <select required value={expense.type_name} className="form_group_input" onChange={handleTypeChange} >
+            <div className="expense_edit_form">
+              <input  type="date" value={new Date(expense.date).toLocaleDateString('en-CA').split('T')[0]}required className="expense_edit_input" onChange={(ev) => setExpense({ ...expense, date: ev.target.value })} />
+              <select required value={expense.type_name} className="expense_edit_input" onChange={handleTypeChange} >
                 <option value="gasto">Expense</option>
                 <option value="ingreso">Income</option> 
               </select>
-              <select required value={expense.category_name} className="form_group_input" onChange={(ev) => setExpense({ ...expense, category_name: ev.target.value })} >
+              <select required value={expense.category_name} className="expense_edit_input" onChange={(ev) => setExpense({ ...expense, category_name: ev.target.value })} >
                 <option>Select</option>
                 {filteredCategories.map((category) => (
                   <option key={category.idcategories} value={category.category_name}>{category.category_name}</option>
                 ))} {/*Se mapean todas las categorías según el tipo de gasto/ingreso*/}
               </select>
-              <input type="text" value={expense.desc || ''} onChange={(ev) => setExpense({ ...expense, desc: ev.target.value })} />
-              <input type="number" value={expense.amount} onChange={(ev) => setExpense({ ...expense, amount: parseFloat(ev.target.value) })} />
+              <input type="text" value={expense.desc || ''} className="expense_edit_input" placeholder="Description" onChange={(ev) => setExpense({ ...expense, desc: ev.target.value })} />
+              <input type="number" value={expense.amount} className="expense_edit_input" onChange={(ev) => setExpense({ ...expense, amount: parseFloat(ev.target.value) })} />
                 
-              <button onClick={handleUpdate}>Save</button> {/*Botón para guardar y actualizar los cambios*/}
+              <div className="edit_save_buttons">
+                <button className="btn_save" onClick={handleUpdate}>Save</button> {/* Botón para guardar y actualizar los cambios */}
+                <button className="btn_cancel" onClick={() => setIsEditing(!isEditing)}>Cancel</button>
+              </div>
             </div> 
 
           ) : (
@@ -123,10 +127,10 @@ function ExpenseDetail({filterCategoriesByType, showDetailedExpense, deleteExpen
               </table>
             </div>
           )}
-        </div> 
-
-        <button className="btn_edit_cancel" onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Cancel' : 'Edit'}</button> {/*Botón para alternar entre modo edición y no edición*/}
-      
+          {!isEditing && (
+            <button className="btn_edit" onClick={() => setIsEditing(true)}>Edit</button> 
+          )}
+        </div>      
       </>
     ) : (
       <div>
