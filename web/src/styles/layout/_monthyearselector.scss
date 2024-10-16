@@ -16,10 +16,10 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
-    }
 
-  .selected_month_btn:hover {
-    background-color: $color-lilac;
+    &:hover {
+       background-color: $color-lilac;
+    }
   }
 
   .selected_month_btn_icon {
@@ -82,11 +82,11 @@
     text-align: center;
     padding-block: 5px;
     cursor: pointer;
-  }
 
-  .calendar_month:hover {
-    background-color: rgba(196, 155, 187, 0.3);
-    font-weight: bold;
+    &:hover {
+      background-color: rgba(196, 155, 187, 0.3);
+      font-weight: bold;
+    }
   }
 
   .month_selected {

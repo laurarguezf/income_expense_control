@@ -89,10 +89,10 @@
     border-radius: 20px;
     padding: 5px 15px;
     transition: background-color 0.3s;
-  }
 
-  .form_submit_btn:hover {
-    background-color: $color-violet;
+    &:hover {
+      background-color: $color-violet;
+    }
   }
 
   .form_reset_btn {
@@ -102,11 +102,10 @@
     border-radius: 20px;
     padding: 5px 15px;
     transition: background-color 0.3s, color 0.3s;
-  }
 
-  .form_reset_btn:hover {
-    background-color: $color-lilac;
-    color: $color-ghost-white
+    &:hover {
+      background-color: $color-lilac;
+      color: $color-ghost-white
+    }
   }
 }
-

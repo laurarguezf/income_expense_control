@@ -106,8 +106,8 @@
   align-items: center;
   cursor: pointer;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
-}
 
-.new_log_button:hover {
-  background-color: lighten($color-lilac, 10%); 
+  &:hover {
+    background-color: lighten($color-lilac, 10%); 
+  }
 }

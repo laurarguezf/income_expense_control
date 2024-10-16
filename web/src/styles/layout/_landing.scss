@@ -75,10 +75,10 @@
               ; 
   cursor: pointer;
   transition: transform 0.3s ease;
-}
 
-.landing_button:hover {
-  background-color: $color-lilac;
-  color: $color-ghost-white;
-  transform: scale(1.05);
+  &:hover {
+    background-color: $color-lilac;
+    color: $color-ghost-white;
+    transform: scale(1.05);
+  }
 }
