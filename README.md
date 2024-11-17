@@ -34,22 +34,24 @@ Sigue estos pasos para tener la aplicación corriendo en tu máquina local:
 
 3. Importa las tablas necesarias:
 
-- En la carpeta bd, encontrarás el archivo dump.sql. Importa este archivo en tu base de datos MySQL.
+   - En la carpeta `bd`, encontrarás el archivo `.dump.sql`. Importa este archivo en tu base de datos MySQL.
 
 4. Configura variables de entorno .env en el directorio raíz del proyecto y añade las siguientes variables :
 
-- Variables como la URL de la base de datos pueden ser configuradas en un archivo .env.
+   - Variables como la URL de la base de datos pueden ser configuradas en un archivo `.env`.
+
+    ```bash
     DB_HOST=            # Host de la base de datos (e.g., localhost)
     DB_USER=            # Usuario de la base de datos (e.g., root)
     DB_PASSWORD=        # Contraseña del usuario
     DB_NAME=            # Nombre de la base de datos
-
+    ```
 5. Inicia el servidor:
 
     ```bash
     npm start
-  
-El servidor debería iniciarse en http://localhost:3000.
+    ```
+    El servidor debería iniciarse en `http://localhost:3000`.
 
 ## Futuras Actualizaciones 🔮
 
@@ -62,7 +64,7 @@ El servidor debería iniciarse en http://localhost:3000.
 
 ## Contribuciones 🤝
 
-¡Nos encantaría que aportaras al proyecto! Si quieres colaborar, solo sigue estos pasos:
+¡Me encantaría que aportaras al proyecto! Si quieres colaborar, solo sigue estos pasos:
 
 1. Realiza un fork del repositorio.
 2. Crea una nueva rama (git checkout -b feature/nueva-caracteristica).
