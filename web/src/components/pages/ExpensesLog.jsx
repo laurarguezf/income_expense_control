@@ -9,12 +9,13 @@ import * as IoIcons from "react-icons/io5";
 import * as CgIcons from "react-icons/cg";
 import * as SiIcons from "react-icons/si";
 import * as HiIcons from "react-icons/hi2";
+import * as GiIcons from "react-icons/gi";
 import MonthYearSelector from "../utils/MonthYearSelector";
 import NewLog from "./NewLog";
 import getCategoryColor from '../../services/categoryColor';
 
 
-function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByType}) {
+function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses}) {
   
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Para almacenar año actual
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Para almacenar mes actual
@@ -58,7 +59,7 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
   //Función para obtener el componente del icono
   const getIconComponent = (icon) => {
     const IconComponent = 
-      MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon] || HiIcons[icon];
+      MdIcons[icon] || FaIcons[icon] || IoIcons[icon] || CgIcons[icon] || SiIcons[icon] || HiIcons[icon] || GiIcons[icon];
   
     if (!IconComponent) {
       console.log(`Icono no encontrado: ${icon}`);
@@ -76,7 +77,7 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
   };
   
   return (
-  <>
+  <div className="calendar_and_expenses">
     <MonthYearSelector 
       currentYear={currentYear} 
       setCurrentYear={setCurrentYear}
@@ -133,9 +134,9 @@ function ExpensesLog({expenses, fetchExpenses, categories, filterCategoriesByTyp
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
-    {showNewLog && <NewLog onClose={handleCloseNewLog} fetchExpenses={fetchExpenses} categories={categories} filterCategoriesByType={filterCategoriesByType}/>}
+    {showNewLog && <NewLog onClose={handleCloseNewLog} filterCategoriesByType={filterCategoriesByType} fetchExpenses={fetchExpenses}/>}
 
-  </>
+  </div>
 )}
 
 export default ExpensesLog;

@@ -1,3 +1,16 @@
+.calendar_and_expenses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 60px;
+    margin-block: 70px;
+  }
+}
+
 .expense_summary {
   display: flex;
   flex-direction: row;
@@ -9,6 +22,16 @@
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 300px;
+  z-index: -1;
+
+  @media (min-width: 768px) {
+    position: fixed;
+    top: 150px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 350px;
+  }
 
   .expense_summary_section {
     text-align: center;
@@ -39,6 +62,14 @@
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  @media (min-width: 768px) {
+    grid-column: 2;
+  }
+
+  @media (min-width: 1024px) {
+    width: 400px;
+  }
+
   .expense_item_header {
     display: flex;
     justify-content: space-between;
@@ -59,6 +90,10 @@
   border-top: 1px solid #ddd;
   padding-block: 10px;
   color: black;
+
+  &:hover {
+    scale: 0.95; 
+  }
 
   .expense_item_icon {
     grid-column: 1;
@@ -109,5 +144,23 @@
 
   &:hover {
     background-color: lighten($color-lilac, 10%); 
+  }
+
+  @media (min-width: 768px) {
+    left: calc(50% - 205px);
+    top: 360px;
+  }
+
+    @media (min-width: 1024px) {
+    left: calc(50% - 300px);
+    font-size: 0.8rem;
+    width: 80px;
+    height: 35px;
+    border-radius: 25px;
+
+    &::after {
+      content: "New";
+      margin-left: 5px;
+    }
   }
 }

@@ -13,7 +13,7 @@ function App() {
 
   const [expenses, setExpenses] = useState([]); //Almacena la lista de gastos
   const [categories, setCategories] = useState( [] ); //Almacena las categorías 
-
+  
   // USEEFFECT
 
   useEffect(() => {
@@ -102,8 +102,14 @@ function App() {
     <main className="main">
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/expenseslog" element={<ExpensesLog expenses={expenses} fetchExpenses={fetchExpenses} categories={categories} filterCategoriesByType={filterCategoriesByType}/>}/>
-        <Route path="/newlog" element={<NewLog categories={categories} filterCategoriesByType={filterCategoriesByType}/>} />
+        <Route path="/expenseslog" element={<ExpensesLog 
+          expenses={expenses}
+          filterCategoriesByType={filterCategoriesByType} 
+          fetchExpenses={fetchExpenses}
+          />}/>
+        <Route path="/newlog" element={<NewLog 
+          fetchExpenses={fetchExpenses}
+          filterCategoriesByType={filterCategoriesByType}/>} />
         <Route path="/details/:id" element={
           <ExpenseDetail 
             filterCategoriesByType={filterCategoriesByType} 

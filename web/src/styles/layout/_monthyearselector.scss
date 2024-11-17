@@ -6,6 +6,16 @@
   justify-content: center;
   align-items: center;
 
+  @media (min-width: 768px) {
+    position: fixed;
+    left: calc(50% - 250px);
+    top: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    left: calc(50% - 320px);
+  }
+
   .selected_month_btn {
     max-width: 150px;
     background-color: $color-violet;
@@ -36,6 +46,7 @@
   border-radius: 10px;
   overflow: hidden;
   animation: fadeIn 0.6s ease-out;
+  z-index: 9999;
 
   @keyframes fadeIn {
     from { max-height: 0;
@@ -44,6 +55,15 @@
     to { max-height: 300px;
         opacity: 1; 
     }
+  }
+
+  @media (min-width: 768px) {
+    top: 50px;
+    width: 310px;
+  }
+
+  @media (min-width: 768px) {
+    width: 360px;
   }
 
   .calendar_header {

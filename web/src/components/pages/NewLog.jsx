@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
-function NewLog({ categories, filterCategoriesByType, onClose, fetchExpenses }) {
+function NewLog({ filterCategoriesByType, onClose, fetchExpenses }) {
 
   //Para almacenar los datos del formulario
   const [formData, setFormData] = useState( {
