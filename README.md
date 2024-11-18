@@ -1,8 +1,8 @@
 ## 🚧 IN PROGRESS 🚧 
 
-# Income and Expense Control 💰📊
+# Track smarter, spend better 💰📊
 
-**Income and Expense Control** te permite llevar un control de tus finanzas personales de manera fácil y eficiente. Puedes agregar, editar y eliminar tus gastos e ingresos, con la opción de organizarlos por **categorías personalizadas** y añadir **descripciones**. Además, tiene un diseño **responsive** que se adapta a todos los dispositivos 📱💻.
+**Track smarter, spend better ** te permite llevar un control de tus finanzas personales de manera fácil y eficiente. Puedes agregar, editar y eliminar tus gastos e ingresos, con la opción de organizarlos por **categorías personalizadas** y añadir **descripciones**. Además, tiene un diseño **responsive** que se adapta a todos los dispositivos 📱💻.
 
 ## Características 🎉
 
@@ -73,4 +73,4 @@ Sigue estos pasos para tener la aplicación corriendo en tu máquina local:
 5. Abre un pull request describiendo los cambios.
 
 
-¡Gracias por usar el Gestor de Gastos e Ingresos! 😊 ¡Esperamos que te ayude a llevar un mejor control de tus finanzas!
+¡Gracias por usar mi gestor de gastos e ingresos! 😊 ¡Esperamos que te ayude a llevar un mejor control de tus finanzas!
