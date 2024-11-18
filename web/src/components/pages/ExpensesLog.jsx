@@ -15,7 +15,7 @@ import NewLog from "./NewLog";
 import getCategoryColor from '../../services/categoryColor';
 
 
-function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses}) {
+function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses, postNewExpense}) {
   
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); //Para almacenar año actual
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()); //Para almacenar mes actual
@@ -134,7 +134,7 @@ function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses}) {
 
     <button onClick={() => setShowNewLog(true)} className="new_log_button">+</button>
     {/*Una vez pulsado el botón y con showNewLog = true, renderizamos el modal NewLog*/}
-    {showNewLog && <NewLog onClose={handleCloseNewLog} filterCategoriesByType={filterCategoriesByType} fetchExpenses={fetchExpenses}/>}
+    {showNewLog && <NewLog onClose={handleCloseNewLog} filterCategoriesByType={filterCategoriesByType} fetchExpenses={fetchExpenses} postNewExpense={postNewExpense}/>}
 
   </div>
 )}

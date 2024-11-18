@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
-function NewLog({ filterCategoriesByType, onClose, fetchExpenses }) {
+function NewLog({ filterCategoriesByType, onClose, fetchExpenses, postNewExpense }) {
 
   //Para almacenar los datos del formulario
   const [formData, setFormData] = useState( {
@@ -48,26 +48,7 @@ function NewLog({ filterCategoriesByType, onClose, fetchExpenses }) {
       desc: formData.desc || null
     };
 
-    //Función para enviar una petición POST al servidor
-    async function postNewExpense(url = '', data = {}) {
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-
-        const responseData = await res.json();
-        return responseData;
-      }
-      catch(error) {
-        console.log('Error en la solicitud POST:', error);
-      }
-    }
-
-    await postNewExpense('http://localhost:3000/expenses', newExpense); //Enviar los datos al servidor y esperar respuesta
+    await postNewExpense(newExpense); //Enviar los datos al servidor y esperar respuesta
     await fetchExpenses(); //Llama a la función para refrescar la lista de gastos
 
     handleClickReset(); //Llama a la función que resetea el formulario

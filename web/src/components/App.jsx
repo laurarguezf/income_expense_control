@@ -25,7 +25,8 @@ function App() {
   //Fetch gastos/ingresos desde la API
   const fetchExpenses = async () => {
     try { 
-      const res = await fetch('http://localhost:3000/expenses')
+      const server = import.meta.env.DEV ? 'http://localhost:3000/expenses' : '/expenses';
+      const res = await fetch(server)
       const data = await (res.json());
 
     //Aplicamos capitalizeLetter para texto estético de la descripción del gasto
@@ -43,7 +44,8 @@ function App() {
   //Fetch categories desde la API
   const fetchCategories = async () => {
     try {
-      const res = await fetch('http://localhost:3000/categories')
+      const server = import.meta.env.DEV ? 'http://localhost:3000/categories' : '/categories';
+      const res = await fetch(server)
       const data = await res.json();
       setCategories(data);
     }
@@ -68,10 +70,31 @@ function App() {
     return detailedExpense; 
   };
 
+  //Función para crear un gasto/ingreso
+  const postNewExpense = async (data = {}) => {
+    try {
+      const server = import.meta.env.DEV ? 'http://localhost:3000/expenses' : '/expenses'
+      const res = await fetch(server, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await res.json();
+      return responseData;
+    }
+    catch(error) {
+      console.log('Error en la solicitud POST:', error);
+    }
+  }
+
   //Función para eliminar un gasto/ingreso
   const deleteExpense = async (id) => {
     try {
-      await fetch(`http://localhost:3000/expenses/${id}`, {
+      const server = import.meta.env.DEV ? `http://localhost:3000/expenses/${id}` : `/expenses/${id}`;
+      await fetch(server, {
         method: 'DELETE',
       });
       fetchExpenses(); // Refrescar la lista de gastos
@@ -83,7 +106,8 @@ function App() {
   //Función para actualizar un gasto/ingreso
   const updateExpense = async (id, updatedExpense) => {
     try {
-      await fetch(`http://localhost:3000/expenses/${id}`, {
+      const server = import.meta.env.DEV ? `http://localhost:3000/expenses/${id}` : `/expenses/${id}`;
+      await fetch(server, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -106,10 +130,12 @@ function App() {
           expenses={expenses}
           filterCategoriesByType={filterCategoriesByType} 
           fetchExpenses={fetchExpenses}
+          postNewExpense={postNewExpense}
           />}/>
         <Route path="/newlog" element={<NewLog 
           fetchExpenses={fetchExpenses}
-          filterCategoriesByType={filterCategoriesByType}/>} />
+          filterCategoriesByType={filterCategoriesByType}/>}
+          postNewExpense={postNewExpense} />
         <Route path="/details/:id" element={
           <ExpenseDetail 
             filterCategoriesByType={filterCategoriesByType} 
