@@ -1,5 +1,3 @@
-## 🚧 IN PROGRESS 🚧 
-
 # Track smarter, spend better 💰📊
 
 **Track smarter, spend better** te permite llevar un control de tus finanzas personales de manera fácil y eficiente. Puedes agregar, editar y eliminar tus gastos e ingresos, con la opción de organizarlos por **categorías personalizadas** y añadir **descripciones**. Además, tiene un diseño **responsive** que se adapta a todos los dispositivos 📱💻.
