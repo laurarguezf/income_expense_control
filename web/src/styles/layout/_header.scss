@@ -7,8 +7,9 @@
     margin-bottom: 80px;
     width: 100%;
 
-    img {
+    &_img {
         background-color: $color-violet;
+        color: $color-ghost-white;
         padding-inline: 5px;
     }
 
