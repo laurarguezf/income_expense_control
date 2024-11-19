@@ -2,9 +2,9 @@
 
 # Track smarter, spend better 💰📊
 
-[![Watch the video](https://example.com/thumbnail.jpg)](https://vimeo.com/1031260098)
-
 **Track smarter, spend better ** te permite llevar un control de tus finanzas personales de manera fácil y eficiente. Puedes agregar, editar y eliminar tus gastos e ingresos, con la opción de organizarlos por **categorías personalizadas** y añadir **descripciones**. Además, tiene un diseño **responsive** que se adapta a todos los dispositivos 📱💻.
+
+[![Watch the video]](https://vimeo.com/1031260098)
 
 ## Características 🎉
 
