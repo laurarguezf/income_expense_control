@@ -73,4 +73,4 @@ Sigue estos pasos para tener la aplicación corriendo en tu máquina local:
 5. Abre un pull request describiendo los cambios.
 
 
-¡Gracias por usar mi gestor de gastos e ingresos! 😊 ¡Esperamos que te ayude a llevar un mejor control de tus finanzas!
+¡Gracias por usar mi gestor de gastos e ingresos! 😊 ¡Espero que te ayude a llevar un mejor control de tus finanzas!
