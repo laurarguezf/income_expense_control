@@ -13,6 +13,7 @@ import * as GiIcons from "react-icons/gi";
 import MonthYearSelector from "../utils/MonthYearSelector";
 import NewLog from "./NewLog";
 import getCategoryColor from '../../services/categoryColor';
+import calculateTotals from '../../services/calculateTotals';
 
 
 function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses, postNewExpense}) {
@@ -41,20 +42,8 @@ function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses, postNewEx
     return type === "ingreso" ? "mediumseagreen" : "lightcoral";
   };
 
-  //Cálculo de gastos e ingresos totales
-  const totals = sortedExpenses.reduce((accumulator, expense) => {
-
-    if (expense.type_name === "ingreso") {
-      accumulator.income += expense.amount;
-    } 
-    else {
-      accumulator.expenses += expense.amount;
-    }
-    return accumulator;
-
-  }, { income: 0, expenses: 0 }); //Datos iniciales para el acumulador
-
-  const balance = totals.income - totals.expenses; //Cálculo del balance
+  //Función para obtener los gastos/ingresos totales usando 'calculateTotals'
+  const { income, expenses: totalExpenses, balance } = calculateTotals(sortedExpenses);
 
   //Función para obtener el componente del icono
   const getIconComponent = (icon) => {
@@ -87,7 +76,7 @@ function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses, postNewEx
     <section className="expense_summary">
       <div className="expense_summary_section">
         <CiBank className="expense_summary_icon"/>
-        <p className="expense_summary_amount">{totals.income.toFixed(2)}</p>
+        <p className="expense_summary_amount">{income.toFixed(2)}</p>
         <p className="expense_summary_category">Income</p>
       </div>
       <div className="expense_summary_section">
@@ -97,7 +86,7 @@ function ExpensesLog({expenses, filterCategoriesByType, fetchExpenses, postNewEx
       </div>
       <div className="expense_summary_section">
         <CiBadgeDollar className="expense_summary_icon"/>
-        <p className="expense_summary_amount" style={{color: 'lightcoral'}}>-{totals.expenses.toFixed(2)}</p>
+        <p className="expense_summary_amount" style={{color: 'lightcoral'}}>-{totalExpenses.toFixed(2)}</p>
         <p className="expense_summary_category">Expenses</p>
       </div>
     </section>
