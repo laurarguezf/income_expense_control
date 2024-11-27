@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Landing from '../components/Landing';
 import { BrowserRouter } from 'react-router-dom';
+import { expect } from '@jest/globals';
 
 test('Should render Landing page correctly', () => {
     render(
@@ -18,4 +19,8 @@ test('Should render Landing page correctly', () => {
     const button = screen.getByRole('link');
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute('href', '/expenseslog');
+
+    // Verificamos que el Header y el Footer se renderizan
+    expect(screen.getByText('Master Your Money')).toBeInTheDocument();
+    expect(screen.getByText('LRF')).toBeInTheDocument();
 });

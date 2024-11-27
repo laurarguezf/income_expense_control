@@ -1,4 +1,3 @@
-import imgMoney from '../../images/money.png'
 import { FaHandHoldingUsd } from "react-icons/fa";
 
 function Header() {
